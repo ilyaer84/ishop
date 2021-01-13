@@ -1,0 +1,249 @@
+#login h1 a {
+   padding-bottom: 50px;
+   line-height: 15;
+}
+.t_centr{
+   text-align: center !important;
+}
+.red {
+   color: red;
+}
+
+.ast-separate-container .ast-archive-description,
+.ast-separate-container .ast-author-box {
+   padding: 3em 6.67em 3.33333em;
+   margin-top: 55px;
+}
+
+.ast-article-single {
+   //   margin-top: 5.3em;
+}
+
+// стили сайббара
+/*
+.ast-separate-container.ast-right-sidebar #secondary,
+.ast-separate-container.ast-left-sidebar #secondary {
+   margin-top: 6em;
+}
+*/
+.sidebar-main {
+   margin-top: 5em;
+}
+
+// скрываем пагинацию
+.post-navigation {
+   display: none;
+}
+
+//
+
+@media (max-width: 767px) {
+   .ast-separate-container .ast-archive-description {
+      padding: 6em 1em 1em 1em;
+   }
+
+   .ast-separate-container .ast-article-single {
+      padding: 6em 1em;
+   }
+
+   .ast-separate-container .ast-article-post,
+   .ast-separate-container .ast-article-single {
+      padding: 0;
+   }
+
+   .elementor-widget-wrap {
+      text-align: center !important;
+   }
+}
+
+.d_osh {
+   text-align: center;
+   width: 100%;
+   background-color: #fff;
+}
+
+// акции
+#actions-list {
+   margin: 0 auto;
+}
+
+.cont_act {
+   //padding-left: 25%;
+   display: flex;
+   width: 100%;
+
+   & time {
+      color: #949494;
+      font-size: 14px;
+   }
+}
+
+.act_d_img {
+   width: 150px;
+   height: 150 px;
+   padding-top: 15px;
+}
+
+.act_img {
+   width: 80%;
+   height: 50%;
+}
+
+.cont_act_left {}
+
+.product_labels {
+   & span {
+      background: #10b6fe;
+      font-size: 13px;
+      margin-right: 10px;
+   }
+}
+
+.act_title {}
+
+.action {}
+
+.discount_price_filter {}
+
+.act_excerpt {}
+
+// end акции
+
+// obrat_sv
+
+.form_req {
+   &::after {
+      content: "*";
+      width: 10px;
+      height: 10px;
+      //  position: absolute;
+      font-size: 20px;
+      //   bottom: 13px;
+      //   right: -13px;
+      color: $color_3;
+      display: inline;
+   }
+}
+
+// end obrat_sv
+
+// главная
+.stat_col_4 {
+   grid-template-columns: repeat(4, 1fr);
+   width: 100%;
+   padding: 0;
+   min-height: 138px;
+   display: grid;
+   margin: 0;
+}
+
+.stat {
+   &__col {
+      position: relative;
+      box-sizing: border-box;
+      height: 100%;
+   }
+
+   &__link {
+      color: #5d5d64;
+      font-size: 14px;
+      line-height: 1.29;
+   }
+
+   &__date {}
+
+   &__title {
+      margin-bottom: 10px;
+      font-size: 24px;
+      line-height: 1.25;
+      color: $color_3 !important;
+   }
+
+   &__description {
+      font-size: 18px;
+      line-height: 1.44;
+   }
+}
+
+.art {
+   &__stat {
+      margin: 0 10px;
+   }
+}
+
+.img_brend {
+   max-width: 150px;
+   max-height: 150px;
+}
+
+.img_glav_cont {
+   position: relative;
+   overflow: hidden;
+   padding-bottom: 70%;
+   /* this is the desired aspect ratio */
+   max-width: 100%;
+
+   & img {
+      position: absolute;
+      /* the following 3 properties center the image on the vertical axis */
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      /* uses image at 100% width (also meaning it's horizontally center) */
+      width: 90%;
+      max-height: 100%;
+   }
+}
+
+.BrandBook__count {
+   color: #b3b3b7;
+   font-size: 30px;
+   line-height: 38px;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-category__title,
+.woocommerce-page ul.products li.product .woocommerce-loop-category__title {
+   overflow: hidden;
+}
+
+// подвал footer
+div.wpforms-container-full .wpforms-form .wpforms-submit-container {
+   text-align: center;
+}
+
+//
+
+@media (max-width: 767px) {
+   .stat_col_4 {
+      grid-template-columns: repeat(2, 1fr);
+   }
+
+   .img_glav_cont {
+      & img {
+         left: 0;
+         right: 0;
+         margin: auto;
+         /* uses image at 100% width (also meaning it's horizontally center) */
+         max-width: 80%;
+      }
+   }
+
+   .post-thumb-img-content {
+      padding-top: 3em;
+   }
+}
+
+// end главная
+
+// footer
+.tel_fot {
+   margin: 0 auto;
+   text-align: center;
+   padding: 0 0;
+}
+
+// end footer
+
+// 1
+
+// end 1

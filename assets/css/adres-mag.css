@@ -1,0 +1,27 @@
+.adr_mag {
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  margin: 10px 0px;
+  display: table; }
+
+.name_block {
+  display: table-cell; }
+
+.l_krai {
+  border-left: 1px solid #0274be; }
+
+.name_col {
+  color: #7a7a7a;
+  border-right: 1px solid #0274be;
+  border-top: 1px solid #0274be;
+  border-bottom: 1px solid #0274be;
+  text-align: center;
+  height: 45px;
+  white-space: nowrap; }
+
+.d_mag {
+  text-align: center;
+  border-right: 1px solid #0274be;
+  border-bottom: 1px solid #0274be;
+  height: 100px; }

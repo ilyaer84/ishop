@@ -1,0 +1,97 @@
+// Файл обнуляющих стилей
+@import "nullstyle.scss";
+/*
+html {
+    font-size: calc(0.6em + 0.6vw)
+}
+*/
+// Переменные для блока
+$fz: 100px;
+$color_1: #10b6fe;
+$color_2: #fff;
+$color_3: #fe10d6;
+$color_cer: #b4b4b4;
+
+.container {
+   max-width: 1600px;
+   margin: 0px auto;
+   padding: 0px 10px;
+}
+
+/*2 цвета */
+
+.bel2 {
+   position: relative;
+   color: black;
+   -webkit-text-stroke: 0.03em #fffffd;
+}
+
+.bel2::before {
+   /* второй слой */
+   /*  content: attr(data-text);
+    position: absolute;
+    /* в том же месте той же ширины */
+   /*   left: 0;
+    right: 0;
+    -webkit-text-stroke: .02em gold;
+    */
+}
+
+a.no-after:after {
+   content: none;
+}
+
+.d-none {
+   display: none !important;
+}
+
+.clearfix {
+   padding: 100px 10px;
+}
+
+.text-c {
+   text-align: center !important;
+}
+
+/*** a стили с плавным подчеркиванием ссылки***/
+/*
+a {
+   display: inline-block;
+   color: #ffeb3b;
+   line-height: 1;
+   text-decoration: none;
+   cursor: pointer;
+   position: relative;
+   border: none;
+
+   &:after {
+      background-color: #ffeb3b;
+      display: block;
+      content: "";
+      height: 2px;
+      width: 0%;
+      left: 50%;
+      position: absolute;
+      -webkit-transition: width .3s ease-in-out;
+      -moz--transition: width .3s ease-in-out;
+      transition: width .3s ease-in-out;
+      -webkit-transform: translateX(-50%);
+      -moz-transform: translateX(-50%);
+      transform: translateX(-50%);
+   }
+
+   &:hover:after,
+   :focus:after {
+      width: 100%;
+   }
+}
+*/
+
+@import "header.scss";
+@import "glav.scss";
+@import "woocomcss.scss";
+@import "modal.scss";
+/*
+@import "header.scss";
+@import "widget.scss";
+*/
