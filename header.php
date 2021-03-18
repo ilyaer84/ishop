@@ -77,8 +77,9 @@ if( is_user_logged_in() ){  // залогинен пользователь ил�
 } else {
    ?>
 
+<!-- Модальное окно - кнопка -->
    <div class="mod_a">    
-      <a href="#callback" class="mod_okno" onClick="div_hide('openModal');">
+      <a  class="mod_okno" onClick="div_hide('openModal');">
          <button class="button-ui button-ui_white header__login_button" data-role="login-button">
          Войти
          </button>

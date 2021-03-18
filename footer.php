@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 
-<!-- Модальное окно Заказ звонка  -->
+<!-- Модальное окно   -->
 <div id="openModal" class="modalDialog">  
 		<?php get_template_part('form_login'); ?>   
 	</div>

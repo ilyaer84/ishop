@@ -1,8 +1,14 @@
 /*** Модальное окно ***/
-
+#openModal {
+    p {
+        margin-bottom: 0.3em !important;
+    }
+}
 .p_mad_title {
     text-align: center !important;
-    font-size: 1em;
+    //  font-size: 3rem;
+    @include adaptiv-value("font-size", 45, 20, 0);
+    // ( свойство ,начальное макетное значение,минимальное значение свойства, режим)
 }
 
 .modalDialog {
@@ -27,9 +33,9 @@
         padding: 5px 20px 13px 20px;
         border-radius: 10px;
         background: #fff;
-        background: -moz-linear-gradient(#fff, #999);
-        background: -webkit-linear-gradient(#fff, #999);
-        background: -o-linear-gradient(#fff, #999);
+        background: -moz-linear-gradient(#fff, rgb(94, 67, 248));
+        background: -webkit-linear-gradient(#fff, rgb(94, 67, 248));
+        background: -o-linear-gradient(#fff, rgb(94, 67, 248));
         & p {
             text-align: justify;
             padding-top: 5px;
@@ -58,9 +64,9 @@
         background: #00d9ff;
     }
 }
-/*** модальное заказ звонка ***/
+/*** модальное  ***/
 
-.form-zvonok {
+.form-login {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -68,20 +74,21 @@
     box-sizing: border-box;
 }
 
-.form-zvonok label,
-.form-zvonok input {
+.form-login label,
+.form-login input {
     display: block;
     width: 100%;
     box-sizing: border-box;
 }
 
-.form-zvonok {
+.form-login {
     & label {
         font-weight: bold;
         padding: 0px;
+        @include adaptiv-value("font-size", 30, 15, 0);
     }
     & input {
-        padding: 0px 15px;
+        // padding: 0px 15px;
     }
     & label span {
         color: red;
@@ -107,6 +114,50 @@
     & p {
         font-size: 0.9em;
     }
+}
+
+.div_sub {
+    padding-top: 1em;
+}
+#wp-submit {
+    border-radius: 5px;
+    background: $color_cer;
+    &:hover {
+        background: $color_3;
+    }
+}
+
+.form-login2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.checkbox-after-label {
+    display: inline-block;
+    width: 45%;
+    height: 100%;
+}
+.signin-signup__content {
+    padding: 12px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.js-inPopup {
+    width: auto !important;
+    display: inline !important;
+    // @include adaptiv-value("font-size", 15, 15, 0);
+}
+
+.external-auth-providers {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-columns: repeat(auto-fit, 36px);
+    grid-template-rows: repeat(auto-fit, 36px);
 }
 
 .tel7 {
@@ -222,9 +273,13 @@
     // margin: 0 auto;
 }
 
+.social-likes {
+    display: flex;
+}
+
 @media (max-width: 767px) {
     .modalDialog > div {
-        max-width: 300px;
+        // max-width: 300px;
     }
     .my_captcha {
         transform: scale(0.72);
@@ -234,15 +289,15 @@
 
 @media only screen and (min-width: 350px) and (max-width: 1200px) and (orientation: landscape) {
     .modalDialog > div {
-        min-height: 85%;
+        // min-height: 85%;
         // margin: 1% auto;
-        font-size: 0.7rem;
+        //font-size: 0.7rem;
         & label {
             margin-bottom: 0;
         }
     }
     .text-danger {
-        font-size: 0.7rem;
+        // font-size: 0.7rem;
     }
     .div_cap {
         max-height: 40px;
@@ -251,13 +306,13 @@
         transform: scale(0.5);
         // padding-left: 33%;
     }
-    .form-zvonok {
+    .form-login {
         & label {
             padding: 0px;
-            font-size: 0.7rem;
+            //  font-size: 0.7rem;
         }
         & input {
-            padding: 0px 0px;
+            //  padding: 0px 0px;
         }
         & .bot-send-mail {
             padding: 0px;
@@ -267,11 +322,11 @@
         .form-control {
             /*в jet*/
             padding: 0 0;
-            font-size: 0.7rem;
+            //  font-size: 0.7rem;
         }
         & p {
-            font-size: 1.2vw;
-            padding-top: 0px;
+            // font-size: 1.2vw;
+            //  padding-top: 0px;
         }
     }
 }

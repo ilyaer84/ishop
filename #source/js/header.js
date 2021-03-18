@@ -17,32 +17,64 @@ $(function () {
    console.log(document.cookie);
 });
 
+
+
 $(document).ready(function () {
 
 
-   // end выбор города
 
-   function setCookie(cname, cvalue, exdays) {
-      var d = new Date();
-      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-      var expires = "expires=" + d.toUTCString();
-      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-      console.log(document.cookie); // выводим куки
-      location.reload();
+
+   // Простая функция для получения get:
+   function $_GET(key) {
+      var p = window.location.search;
+      p = p.match(new RegExp(key + '=([^&=]+)'));
+      return p ? p[1] : false;
+   }
+   // вкл модальное окно
+   if ($_GET('logform') == 'y') {
+      $("#openModal").show();
+      //  div_hide('openModal')
    }
 
+   // *************
 
-   $("#selectItem").change(function () {
-      //    $('.containerss').find('div').hide();
-      var selected = $('#selectItem option:selected').attr('id');
-      var name = $('#selectItem option:selected').attr('name');
-      console.log('selected ' + selected); //
-      localStorage.setItem("myKey", selected);
-      $('.' + selected).show();
-      setCookie('city', name);
-
+   jQuery("#loginform-custom").submit(function () {
+      var isFormValid = true;
+      jQuery("input").each(function () {
+         if (jQuery.trim($(this).val()).length == 0) {
+            jQuery(this).addClass("submit_error");
+            isFormValid = false;
+         }
+         else {
+            jQuery(this).removeClass("submit_error");
+         }
+      });
+      return isFormValid;
    });
 
+   // end выбор города
+   /*
+      function setCookie(cname, cvalue, exdays) {
+         var d = new Date();
+         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+         var expires = "expires=" + d.toUTCString();
+         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+         console.log(document.cookie); // выводим куки
+         location.reload();
+      }
+   
+   
+      $("#selectItem").change(function () {
+         //    $('.containerss').find('div').hide();
+         var selected = $('#selectItem option:selected').attr('id');
+         var name = $('#selectItem option:selected').attr('name');
+         console.log('selected ' + selected); //
+         localStorage.setItem("myKey", selected);
+         $('.' + selected).show();
+         setCookie('city', name);
+   
+      });
+   */
    //
 
 
@@ -74,20 +106,39 @@ $(document).ready(function () {
    //   console.log('a_slyd ' + str2); //
 
 
+
+   /*доб стили разделителей в меню*/
+
+   var header = $('#header');
+   var heightHeader = header.height;
+   /*
+   if (window.matchMedia('(max-width: 768px)').matches) {
+      $('.site-header').css({
+         top: '0px',
+      })
+   }
+   */
+
+
+   //   проверка существования куки и блокируем кнопку
+
+   if ($.cookie("wordpress_test_cookie") == null) {
+      console.log('Cookie Is Null'); // выводим 
+      $("#wp-submit").prop('disabled', true); // добавляем атрибут
+   } else {
+      console.log('Cookie = ' + cookieExist); // выводим все куки
+      $("#wp-submit").prop('disabled', false); // удаляем атрибут
+   }
+
+   // ***
+
+
 })
+//  win**************************************************
 
-/*доб стили разделителей в меню*/
-
-var header = $('#header');
-var heightHeader = header.height;
-/*
-if (window.matchMedia('(max-width: 768px)').matches) {
-   $('.site-header').css({
-      top: '0px',
-   })
-}
-*/
 window.onscroll = function () {
+
+
 
    /*
       if (window.matchMedia('(min-width: 940px)').matches) {
@@ -115,8 +166,6 @@ window.onscroll = function () {
 
 
 
-
-
-
-
 };
+
+

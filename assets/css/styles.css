@@ -224,7 +224,7 @@ a {
   .h_left__1 {
     padding: 15px 10px;
     inline-size: auto;
-    color: #fe10d6; }
+    color: #525e69; }
 
 #selectItem {
   padding: 0; }
@@ -384,7 +384,7 @@ polygon {
   align-items: center;
   position: relative; }
   .HeaderUserName a {
-    color: #fe10d6;
+    color: #525e69;
     text-align: center; }
   .HeaderUserName__image-container img {
     border-radius: 50%;
@@ -606,7 +606,7 @@ polygon {
   width: 10px;
   height: 10px;
   font-size: 20px;
-  color: #fe10d6;
+  color: #525e69;
   display: inline; }
 
 .stat_col_4 {
@@ -634,7 +634,7 @@ polygon {
   margin-bottom: 10px;
   font-size: 24px;
   line-height: 1.25;
-  color: #fe10d6 !important; }
+  color: #525e69 !important; }
 
 .stat__description {
   font-size: 18px;
@@ -716,8 +716,8 @@ ul.products li.product {
   -webkit-box-shadow: 0 25px 25px rgba(30, 31, 33, 0.12);
   box-shadow: 0 25px 25px rgba(30, 31, 33, 0.12); }
   ul.products li.product:hover {
-    -webkit-box-shadow: 0 15px 25px #fe10d6;
-    box-shadow: 0 15px 25px #fe10d6; }
+    -webkit-box-shadow: 0 15px 25px #525e69;
+    box-shadow: 0 15px 25px #525e69; }
 
 .woocommerce ul.products li.product,
 .woocommerce-page ul.products li.product {
@@ -762,9 +762,12 @@ ul.products li.product {
     margin-top: 4em; } }
 
 /*** Модальное окно ***/
+#openModal p {
+  margin-bottom: 0.3em !important; }
+
 .p_mad_title {
   text-align: center !important;
-  font-size: 1em; }
+  font-size: calc(20px + 25 * ((100vw - 320px) / 1600)); }
 
 .modalDialog {
   position: fixed;
@@ -789,9 +792,9 @@ ul.products li.product {
     padding: 5px 20px 13px 20px;
     border-radius: 10px;
     background: #fff;
-    background: -moz-linear-gradient(#fff, #999);
-    background: -webkit-linear-gradient(#fff, #999);
-    background: -o-linear-gradient(#fff, #999); }
+    background: -moz-linear-gradient(#fff, #5e43f8);
+    background: -webkit-linear-gradient(#fff, #5e43f8);
+    background: -o-linear-gradient(#fff, #5e43f8); }
     .modalDialog > div p {
       text-align: justify;
       padding-top: 5px; }
@@ -816,8 +819,8 @@ ul.products li.product {
   .close:hover {
     background: #00d9ff; }
 
-/*** модальное заказ звонка ***/
-.form-zvonok {
+/*** модальное  ***/
+.form-login {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -830,24 +833,22 @@ ul.products li.product {
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-.form-zvonok label,
-.form-zvonok input {
+.form-login label,
+.form-login input {
   display: block;
   width: 100%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-.form-zvonok label {
+.form-login label {
   font-weight: bold;
-  padding: 0px; }
+  padding: 0px;
+  font-size: calc(15px + 15 * ((100vw - 320px) / 1600)); }
 
-.form-zvonok input {
-  padding: 0px 15px; }
-
-.form-zvonok label span {
+.form-login label span {
   color: red; }
 
-.form-zvonok .bot-send-mail {
+.form-login .bot-send-mail {
   padding: 15px;
   margin-top: 10px;
   background: none;
@@ -860,12 +861,62 @@ ul.products li.product {
   border: 3px #d9d9d9 solid;
   border-radius: 5px;
   width: 100%; }
-  .form-zvonok .bot-send-mail:hover {
+  .form-login .bot-send-mail:hover {
     color: #009b97;
     background-color: #fff; }
 
-.form-zvonok p {
+.form-login p {
   font-size: 0.9em; }
+
+.div_sub {
+  padding-top: 1em; }
+
+#wp-submit {
+  border-radius: 5px;
+  background: #b4b4b4; }
+  #wp-submit:hover {
+    background: #525e69; }
+
+.form-login2 {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.checkbox-after-label {
+  display: inline-block;
+  width: 45%;
+  height: 100%; }
+
+.signin-signup__content {
+  padding: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+
+.js-inPopup {
+  width: auto !important;
+  display: inline !important; }
+
+.external-auth-providers {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 12px;
+  grid-template-columns: repeat(auto-fit, 36px);
+  grid-template-rows: repeat(auto-fit, 36px); }
 
 .tel7 {
   display: -webkit-box;
@@ -973,9 +1024,12 @@ ul.products li.product {
   display: table;
   margin: 0 auto; }
 
+.social-likes {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
 @media (max-width: 767px) {
-  .modalDialog > div {
-    max-width: 300px; }
   .my_captcha {
     -webkit-transform: scale(0.72);
     -ms-transform: scale(0.72);
@@ -983,35 +1037,23 @@ ul.products li.product {
 
 /* iPads (горизонтальная) ----------- */
 @media only screen and (min-width: 350px) and (max-width: 1200px) and (orientation: landscape) {
-  .modalDialog > div {
-    min-height: 85%;
-    font-size: 0.7rem; }
-    .modalDialog > div label {
-      margin-bottom: 0; }
-  .text-danger {
-    font-size: 0.7rem; }
+  .modalDialog > div label {
+    margin-bottom: 0; }
   .div_cap {
     max-height: 40px; }
   .my_captcha {
     -webkit-transform: scale(0.5);
     -ms-transform: scale(0.5);
     transform: scale(0.5); }
-  .form-zvonok label {
-    padding: 0px;
-    font-size: 0.7rem; }
-  .form-zvonok input {
-    padding: 0px 0px; }
-  .form-zvonok .bot-send-mail {
+  .form-login label {
+    padding: 0px; }
+  .form-login .bot-send-mail {
     padding: 0px;
     margin-top: 0px;
     border-radius: 5px; }
-  .form-zvonok .form-control {
+  .form-login .form-control {
     /*в jet*/
-    padding: 0 0;
-    font-size: 0.7rem; }
-  .form-zvonok p {
-    font-size: 1.2vw;
-    padding-top: 0px; } }
+    padding: 0 0; } }
 
 /*
 @import "header.scss";

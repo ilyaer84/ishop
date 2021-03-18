@@ -15,4 +15,9 @@ function div_hide(id) {
       x.style.display = 'block';
    }
 }
-console.log('Hi? main'); // выводим 
+
+
+
+
+
+
