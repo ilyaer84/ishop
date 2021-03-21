@@ -36,7 +36,7 @@ if(isset($_POST["zakaz_zvonka"])) {
     }
     ?>
 
-    <form name="loginform" id="loginform" action="<?php bloginfo('url') ?>/wp-login.php" method="post"> 
+    <form name="loginform" id="loginform" action="<?php bloginfo('url') ?>/wp-login.php" method="post" data-type="authorization"> 
 
     <div class="form-login"> 
 
@@ -54,7 +54,9 @@ if(isset($_GET['login']) && $_GET['login'] == 'failed')
 <?php } ?>
 
 <!-- элемент для вывода ошибок -->
-<div class="text-danger text-c" id="recaptchaError"></div>
+    <div class="text-danger text-c" id="recaptchaError">
+
+    </div>
 
 <?php
 if(isset($_GET['login']) && $_GET['login'] == 'failed')
@@ -147,7 +149,7 @@ if(isset($_GET['login']) && $_GET['login'] == 'failed')
           <input class="js-inPopup"  name="rememberme" type="checkbox" id="rememberme" value="forever" /> Запомнить меня</span>
       </div>  
             <span class="span_logintpassword">
-            <a class="logintpassword-link" href="/my-account/lost-password/">Забыли пароль?</a> </span> 
+            <a href="<?php bloginfo( 'url' ) ?>/wp-login.php?action=lostpassword">Забыли пароль? </a> </span> 
         
     </div>
 

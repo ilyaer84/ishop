@@ -125,7 +125,7 @@ include_once(__DIR__ . '/inc/admin/admin_my_astra.php');
    //   wp_enqueue_style('child-theme-css', get_stylesheet_directory_uri() .'/style.css', array('parent-theme-css') );
    
       //прежде пользумся ивентовой моделью
-   wp_enqueue_style('main', get_stylesheet_directory_uri() . '/assets/css/styles.css'); 
+   wp_enqueue_style('main_style', get_stylesheet_directory_uri() . '/assets/css/styles.css'); 
    // (название , адресс) get_template_directory_uri - расположение темы 
  
   
@@ -265,7 +265,7 @@ add_action('widgets_init', function(){  // widgets_init название хук�
    
    // ! свои плагины
 
-   include_once(__DIR__ . '/inc/plugin/custom-registration/custom-registration.php'); // однократного включения, регистрация 
+ // include_once(__DIR__ . '/inc/plugin/custom-registration/custom-registration.php'); // однократного включения, регистрация 
   
 // include_once(__DIR__ . '/inc/plugin/custom-registration/reg_prof.php'); // однократного включения, регистрация 
 
@@ -525,7 +525,7 @@ function true_peremeshhaem_jquery_v_futer() {
 */
 
 // end Перенос скриптов в подвал 
-
+/*
 add_action( 'wp_print_styles', 'true_otkljuchaem_stili_contact_form', 100 ); 
 // по идее вы можете использовать и хук wp_enqueue_scripts, хотя конкретно его я не тестировал
  
@@ -534,3 +534,4 @@ function true_otkljuchaem_stili_contact_form() {
    wp_deregister_style( 'astra-theme-css-inline-css' ); 
    wp_deregister_style( 'google-fonts-1-css' );
 }
+*/

@@ -29,7 +29,7 @@ add_filter( 'pre_user_login', function( $user_login ) {
 
 add_filter( 'illegal_user_logins', function( $illegal_logins ) {
  
-	return array( 'Loh', 'administrator', 'admin' );
+//	return array( 'Loh', 'administrator', 'admin' );
  
 } );
 
@@ -50,7 +50,7 @@ function my_user_contactmethods($user_contactmethods){
 }
 
 // подключаем форму - создаем функцию PHP, которая содержит HTML-код регистрационной формы.
-get_template_part('inc\plugin\custom-registration/form_reg');
+//get_template_part('inc\plugin\custom-registration/form_reg');
 // get_template_part( 'nav', 'single', [ 'param1' => 'hello', 'param2' => [ 1, 2 ] ] );
 
 
@@ -70,7 +70,7 @@ function custom_registration_function() {
         $_POST['bio']
 		);
 		
-		// sanitize user form input
+		// Продолжительность ввода формы пользователя
         global $username, $password, $email, $city, $mobile, $website, $first_name, $last_name, $nickname, $bio;
         $username	= 	sanitize_user($_POST['username']);
         $password 	= 	esc_attr($_POST['password']);
@@ -83,8 +83,8 @@ function custom_registration_function() {
         $nickname 	= 	sanitize_text_field($_POST['nickname']);
         $bio 		= 	esc_textarea($_POST['bio']);
 
-		// call @function complete_registration to create the user
-		// only when no WP_error is found
+		// Вызовите @function comeny_registration, чтобы создать пользователь
+        // только тогда, когда нет WP_ERROR не найден
         complete_registration(
         $username,
         $password,

@@ -169,7 +169,7 @@ if(isset($_POST["zakaz_zvonka"])) {
     <div class="signin-signup__content">
       <span>Нет аккаунта? </span>
     <!--  <a class="signin-signup-footer-link" onclick="show_signup(); return false;">Зарегистрироваться</a> -->
-    <a href="/reg" class="link_logo" >Зарегистрироваться</a>
+    <a href="/reg" class="link_logo" >Зарегистрироваться 777</a>
     </div>
 
     </div>

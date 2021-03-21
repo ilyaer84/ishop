@@ -265,7 +265,7 @@ add_action('widgets_init', function(){  // widgets_init название хук�
    
    // ! свои плагины
 
-   include_once(__DIR__ . '/inc/plugin/custom-registration/custom-registration.php'); // однократного включения, регистрация 
+  include_once(__DIR__ . '/inc/plugin/custom-registration/custom-registration.php'); // однократного включения, регистрация 
   
 // include_once(__DIR__ . '/inc/plugin/custom-registration/reg_prof.php'); // однократного включения, регистрация 
 
@@ -284,12 +284,13 @@ include_once(__DIR__ . '/inc/shortcode/my_shortcode.php');
   });
 
   // !  отключение админ бара
-// add_action('show_admin_bar', '__return_false');
+ add_action('show_admin_bar', '__return_false');
 
 // ! для Contact Form
 //Доработка возвртим галочку
 
 // ! Ориентация на конкретную контактную форму
+
 add_action( 'wp_footer', 'mycustom_wp_footer' );
  
 function mycustom_wp_footer() {
@@ -329,15 +330,18 @@ function wtf($array, $stop = false) {
 }
 
 //
+\
+
+// Работа с формой входа 
 
 //Неудавшаяся попытка входа 
-
+/*
 add_action( 'wp_login_failed', 'pu_login_failed' ); // перехватить неудачный логин
  
 function pu_login_failed( $user ) {
      // проверьте, с какой страницы происходит попытка входа в систему
      //$referrer = $_SERVER['HTTP_REFERER'];
-     $referrer =  bloginfo('url') . "/?login=failed&logform=y";
+     $referrer = home_url(); // bloginfo('url') ;//. "/?login=failed&logform=y";
  
      // проверьте, что не было на странице входа по умолчанию
      if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') && $user!=null ) {
@@ -345,45 +349,45 @@ function pu_login_failed( $user ) {
           if ( !strstr($referrer, '?login=failed' )) {
                // Перенаправить на страницу входа и добавить строку запроса входа в систему не удалось
           wp_redirect( $referrer . '?login=failed');
+          //header('Location: #openModal');
          } else {
-               wp_redirect( $referrer );
+          wp_redirect( $referrer . '?login=failed' );
          }
  
          exit;
      }
 }
 
-// Пустой логин и пароль
-add_action( 'authenticate', 'pu_blank_login');
- 
-function pu_blank_login( $user ){
-     // check what page the login attempt is coming from
-     //$referrer = $_SERVER['HTTP_REFERER'];
-     $referrer =  bloginfo('url') . "/#login_form";
 
-     $error = false;
- 
-     if($_POST['log'] == '' || $_POST['pwd'] == '')
-     {
-          $error = true;
-     }
- 
-     // check that were not on the default login page
-     if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') && $error ) {
- 
-          // make sure we don't already have a failed login attempt
-     if ( !strstr($referrer, '?login=failed') ) {
-          // Redirect to the login page and append a querystring of login failed
-          wp_redirect( $referrer . '?login=failed' );
-          } else {
-          wp_redirect( $referrer );
-          }
+// Пустой логин и пароль
+
+add_action( 'authenticate', 'form_page_login');
+function form_page_login( $user ){
+    $referrer = $_SERVER['HTTP_REFERER'];
+    $error = false;
+    if($_POST['log'] == '' || $_POST['pwd'] == '')
+    {
+        $error = true;
+    }
+    if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') && $error ) {
+        if ( !strstr($referrer, '?login=failed') ) {
+            wp_redirect( $referrer . '?login=failed' );
+        } else {
+            wp_redirect( $referrer );
+        }
  
     exit;
  
-     }
+    }
 }
-
+*/
+// ! Переход на главную после нажатия кнопки выход
+add_action('wp_logout','my_wp_logout');
+function my_wp_logout() {
+    wp_safe_redirect('/');
+    exit;
+};
+//
 
 
 // ! загрузить SVG
@@ -458,13 +462,7 @@ function login_redirect() {
    }
    add_filter('login_redirect', 'login_redirect');
 */
-// ! Переход на главную после нажатия кнопки выход
-add_action('wp_logout','my_wp_logout');
-function my_wp_logout() {
-    wp_safe_redirect('/');
-    exit;
-};
-//
+
 
 
 // изменить логотип при входе
@@ -525,7 +523,7 @@ function true_peremeshhaem_jquery_v_futer() {
 */
 
 // end Перенос скриптов в подвал 
-
+/*
 add_action( 'wp_print_styles', 'true_otkljuchaem_stili_contact_form', 100 ); 
 // по идее вы можете использовать и хук wp_enqueue_scripts, хотя конкретно его я не тестировал
  
@@ -534,3 +532,150 @@ function true_otkljuchaem_stili_contact_form() {
    wp_deregister_style( 'astra-theme-css-inline-css' ); 
    wp_deregister_style( 'google-fonts-1-css' );
 }
+*/
+
+// !Аякс Авторизация - регистрация
+
+// Добавляем событие в процесс инициализации JS скриптов
+add_action( 'wp_enqueue_scripts', 'wplb_ajax_enqueue' );
+//Описываем событие
+function wplb_ajax_enqueue() {
+    // Подключаем файл js скрипта.
+    wp_enqueue_script(
+        'wplb-ajax', // Имя
+        get_stylesheet_directory_uri() . '/assets/js/wplb-ajax.js', // Путь до JS файла.
+        array('jquery') // В массив jquery.
+    );
+    // Используем функцию wp_localize_script для передачи переменных в JS скрипт.
+    wp_localize_script(
+        'wplb-ajax', // Куда будем передавать
+        'wplb_ajax_obj', // Название массива, который будет содержать передаваемые данные
+        array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ), // Элемент массива, содержащий путь к admin-ajax.php
+            'nonce' => wp_create_nonce('wplb-nonce') // Создаем nonce
+            // Использование nonce (Hash, с определенным жизненным циклом), значительно уменьшает вероятность неправомерного использования события.
+        )
+    );
+}
+
+// Создаём событие обработки Ajax в WordPress теме.
+add_action( 'wp_ajax_nopriv_wplb_ajax_request', 'wplb_ajax_request' );
+//add_action( 'wp_ajax_wplb_ajax_request', 'wplb_ajax_request' );
+
+// Описываем саму функцию.
+function wplb_ajax_request() {
+
+    // Перемененная $_REQUEST содержит все данные заполненных форм.
+    if ( isset( $_REQUEST ) ) {
+
+        // Проверяем nonce, а в случае если что-то пошло не так, то прерываем выполнение функции.
+        if ( !wp_verify_nonce( $_REQUEST[ 'security' ], 'wplb-nonce' ) ) {
+            wp_die( 'Базовая защита не пройдена' );
+        }
+
+        // Введём переменную, которая будет содержать массив с результатом отработки события.
+        $result = array( 'status' => false, 'content' => false );
+        
+        // Создаём массив который содержит значения полей заполненной формы.
+        parse_str( $_REQUEST[ 'content' ], $creds );
+        
+        switch ( $_REQUEST[ 'type' ] ) {
+            case 'registration':
+                /**
+                 * Заполнена форма регистрации.
+                 */
+                  // Пробуем создать объект с пользователем.
+                  $user = username_exists( $creds[ 'wplb_login' ] );
+                  // Проверяем, а может быть уже есть такой пользователь
+                  if ( !$user && false == email_exists( $creds[ 'wplb_email' ] ) ) {
+                      // Пользователя не существует.
+                      // Создаём массив с данными для регистрации нового пользователя.
+                      $user_data = array(
+                          'user_login' => $creds[ 'wplb_login' ], // Логин.
+                          'user_email' => $creds[ 'wplb_email' ], // Email.
+                          'user_pass' => $creds[ 'wplb_password' ], // Пароль.
+                          'display_name' => $creds[ 'wplb_login' ], // Отображаемое имя.
+                          'role' => 'subscriber' // Роль.
+                      );
+                      // Добавляем пользователя в базу данных.
+                      $user = wp_insert_user( $user_data );
+                      // Проверка на ошибки.
+                      if ( is_wp_error( $user ) ) {
+                          // Невозможно создать пользователя, записываем результат в массив.
+                          $result[ 'status' ] = false;
+                          $result[ 'content' ] = $user->get_error_message();
+                      } else {
+                          // Создаём массив для авторизации.
+                          $creds = array(
+                              'user_login' => $creds[ 'wplb_login' ], // Логин пользователя.
+                              'user_password' => $creds[ 'wplb_password' ], // Пароль пользователя.
+                              'remember' => true // Запоминаем.
+                          );
+                          // Пробуем авторизовать пользователя.
+                          $signon = wp_signon( $creds, false );
+                          if ( is_wp_error( $signon ) ) {
+                              // Авторизовать не получилось.
+                              $result[ 'status' ] = false;
+                              $result[ 'content' ] = $signon->get_error_message();
+                          } else {
+                              // Авторизация успешна, устанавливаем необходимые куки.
+                              wp_clear_auth_cookie();
+                              clean_user_cache( $signon->ID );
+                              wp_set_current_user( $signon->ID );
+                              wp_set_auth_cookie( $signon->ID );
+                              update_user_caches( $signon );
+                              // Записываем результаты в массив.
+                              $result[ 'status' ] = true;
+                          }
+                      }
+                  } else {
+                      
+                      // Такой пользователь уже существует, регистрация не возможна, записываем данные в массив.
+                      $result[ 'status' ] = false;
+                      $result[ 'content' ] = esc_html__( 'Пользователь уже существует', 'wplb_ajax_lesson' );
+                  }
+                break;
+            case 'authorization':
+                /**
+                 * Заполнена форма авторизации.
+                 */
+                // Создаём массив для авторизации
+                     $creds = array(
+                        'user_login' => $creds[ 'log' ], // Логин пользователя
+                        'user_password' => $creds[ 'pwd' ], // Пароль пользователя
+                        'remember' => true // Запоминаем
+                  );
+                  // Пробуем авторизовать пользователя.
+                  $signon = wp_signon( $creds, false );
+                  if ( is_wp_error( $signon ) ) {
+                        // Авторизовать не получилось
+                        $result[ 'status' ] = false;
+                        $result[ 'content' ] = $signon->get_error_message();
+                  } else {
+                        // Авторизация успешна, устанавливаем необходимые куки.
+                        wp_clear_auth_cookie();
+                        clean_user_cache( $signon->ID );
+                        wp_set_current_user( $signon->ID );
+                        wp_set_auth_cookie( $signon->ID );
+                        update_user_caches( $signon );
+                        // Записываем результаты в массив.
+                        $result[ 'status' ] = true;
+                  }
+                break;
+        }
+
+        // Конвертируем массив с результатами обработки и передаем его обратно как строку в JSON формате.
+        echo json_encode( $result );
+
+    }
+
+        
+
+    // Заканчиваем работу Ajax.
+    wp_die();
+}
+
+
+
+
+// end 

@@ -1,8 +1,8 @@
 /* header */
 
 // добавим стили для меню добавочного своего
-.main-navigation .menu-item-has-children>a::after,
-.main-navigation .page_item_has_children>a::after {
+.main-navigation .menu-item-has-children > a::after,
+.main-navigation .page_item_has_children > a::after {
    content: "\e900";
    display: inline-block;
    font-family: Astra;
@@ -46,7 +46,6 @@
    }
 }
 
-
 #selectItem {
    padding: 0;
 }
@@ -89,7 +88,6 @@
    align-self: center;
 }
 
-
 .button-ui_white {
    background: #fff;
    border: 1px solid #d9d9d9;
@@ -101,7 +99,6 @@
    text-align: center;
    //  overflow: hidden;
 }
-
 
 #searchsubmit {
    width: 70px;
@@ -156,7 +153,6 @@
       border-color: #10b6fe;
    }
 
-
    &:focus {
       background-color: #10b6fe;
       border-color: #10b6fe;
@@ -166,10 +162,7 @@
       background-color: #fe10d6;
       border-color: #10b6fe;
    }
-
 }
-
-
 
 .App__backToTopIcon----3FHO {
    fill: #fff;
@@ -220,8 +213,6 @@ polygon {
    align-self: center;
 }
 
-
-
 .HeaderUserName {
    max-width: 100px;
    display: flex;
@@ -234,33 +225,32 @@ polygon {
    }
 
    &__image-container {
-
-
       & img {
          border-radius: 50%;
          max-width: 32px;
-  //       position: absolute;
-//top: 50%;
-//left: 50%;
-//max-width: 100%;
-//transform: translate(-50%,-50%);
+         //       position: absolute;
+         //top: 50%;
+         //left: 50%;
+         //max-width: 100%;
+         //transform: translate(-50%,-50%);
       }
 
       &__name {
          font-size: 14px;
       }
-      &:hover~.menu_users  { display: inline-table;}
+      &:hover ~ .menu_users {
+         display: inline-table;
+      }
    }
 }
 .menu_users {
-   
    position: absolute;
    display: none;
    min-width: 140px;
    top: 48px;
    margin-left: -10px;
    border-top: 1px solid #dcdcdc;
-   box-shadow: 0 5px 17px rgba(0,0,0,.15);
+   box-shadow: 0 5px 17px rgba(0, 0, 0, 0.15);
    z-index: 1001;
    background: #fff;
    border-radius: 4px;
@@ -268,18 +258,17 @@ polygon {
    font-size: 14px;
    line-height: 20px;
    text-align: left !important;
-      &:hover {
-         display: inline-table;
-      }
-      & .menu__users__men_verh_lev{
-
-      }
+   &:hover {
+      display: inline-table;
+   }
+   & .menu__users__men_verh_lev {
+   }
 }
 
 .site-title {
    animation-name: my_bounceIn;
    animation-duration: 3s;
-   animation-delay: 0.6s; // определяет время задежки перед стартом 
+   animation-delay: 0.6s; // определяет время задежки перед стартом
    animation-iteration-count: 2; //infinite
 }
 
@@ -341,7 +330,6 @@ polygon {
    }
 }
 
-
 @media (max-width: 940px) {
    .h-top {
       display: none;
@@ -361,13 +349,12 @@ polygon {
    }
 }
 
-
 @media (max-width: 767px) {
    .HeaderUserName {
+      & a {
+      }
 
-      & a {}
-
-      &__image-container {}
+      &__image-container {
+      }
    }
-
 }

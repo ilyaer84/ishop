@@ -69,7 +69,7 @@ if( is_user_logged_in() ){  // залогинен пользователь ил�
        'container_class' => 'ast-flex-grow-1 navigation-accessibility',
 //         'depth'           => 1,
          ]);
-
+         echo '<a href="'. wp_logout_url( home_url() ).'" title="Выход">Выход</a>';
          echo  '</div>     </div>' ;
 
  //  echo get_avatar( $current_user->user_email, 30, '', '', array('class'=>'pull-left', 'extra_attr'=>'style="margin: -4px 7px;"') ) ;
