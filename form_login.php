@@ -20,7 +20,7 @@ if(isset($_POST["zakaz_zvonka"])) {
 
 
 		<a title="Закрыть" class="close" onClick="div_hide('openModal');" >X</a>
-		<p class="p_centr p_mad_title">Вход 1</p>  
+		<p class="p_centr p_mad_title">Вход </p>  
 
     <?php
     if (!$_COOKIE["wordpress_test_cookie"]) {
