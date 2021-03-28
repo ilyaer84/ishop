@@ -1,0 +1,360 @@
+/* header */
+
+// добавим стили для меню добавочного своего
+.main-navigation .menu-item-has-children > a::after,
+.main-navigation .page_item_has_children > a::after {
+   content: "\e900";
+   display: inline-block;
+   font-family: Astra;
+   font-size: 9px;
+   font-size: 0.6rem;
+   font-weight: 700;
+   text-rendering: auto;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   margin-left: 10px;
+   line-height: normal;
+}
+
+/**Для элементов текущей страницы**/
+/*
+.current-menu-item>a {
+   color: red;
+}
+
+
+*/
+.ast-site-identity {
+   padding: 0;
+}
+
+// моя шапка добавка
+.h-top {
+   display: flex;
+   max-width: 1600px;
+   margin: 0 auto;
+}
+
+.h_left {
+   display: inline-flex;
+   margin: 0 auto;
+   &__1 {
+      padding: 15px 10px;
+      inline-size: auto;
+
+      color: $color_3;
+   }
+}
+
+#selectItem {
+   padding: 0;
+}
+
+.h_right {
+   margin: 0 auto;
+   padding: 15px 10px;
+   inline-size: auto;
+   display: inline-flex;
+}
+
+// end шапка моя
+
+.site-header {
+   z-index: 99;
+   position: absolute;
+   width: 100%;
+}
+
+// форма поиска
+
+.header-tools {
+   display: inline-flex;
+   vertical-align: middle;
+   align-items: center;
+   line-height: 1;
+   align-self: center;
+
+   & input {
+      padding: 0;
+      height: 30px;
+   }
+}
+
+.users {
+   display: inline-flex;
+   vertical-align: middle;
+   align-items: center;
+   line-height: 1;
+   align-self: center;
+}
+
+.button-ui_white {
+   background: #fff;
+   border: 1px solid #d9d9d9;
+   color: #333;
+   text-decoration: none;
+   padding: 0 12px !important;
+   height: 30px;
+   border-radius: 8px;
+   text-align: center;
+   //  overflow: hidden;
+}
+
+#searchsubmit {
+   width: 70px;
+}
+
+#searchform {
+   /* вся форма, можно задать цвет, размер, отступы */
+   // margin-top: 10;
+}
+
+#searchform input[type="text"] {
+   /* поле ввода */
+}
+
+#searchform input[type="submit"] {
+   /* кнопка */
+   /*
+   min-width: 60px;
+   width: 160px;
+   height: 41px;
+   position: absolute;
+   background: url(/css-formy-poiska-wordpress/img/icon.png) no-repeat centr; /* иконка */
+
+   //  background-color: #d91e18; /* цвет кнопки */
+}
+
+// endформа поиска
+
+/***  кнопка вверх **/
+
+.but__backToTop {
+   display: none;
+   justify-content: center;
+   align-items: center;
+   height: 40px;
+   width: 40px;
+   position: fixed;
+   right: 20px;
+   bottom: 90px;
+   z-index: 20;
+   background: #10b6fe;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+   border-radius: 50%;
+   cursor: pointer;
+   outline: none;
+   border: 0;
+   padding-right: 0px !important;
+   padding-left: 0px !important;
+
+   &:active {
+      background-color: #10b6fe;
+      border-color: #10b6fe;
+   }
+
+   &:focus {
+      background-color: #10b6fe;
+      border-color: #10b6fe;
+   }
+
+   &:hover {
+      background-color: #fe10d6;
+      border-color: #10b6fe;
+   }
+}
+
+.App__backToTopIcon----3FHO {
+   fill: #fff;
+}
+
+.path,
+polygon {
+   fill-opacity: 1;
+}
+
+/*** end кнопка вверх **/
+
+@media (max-width: 767px) {
+   body.lock {
+      overflow: hidden;
+   }
+
+   .header-tools {
+      display: none;
+   }
+
+   .site-description {
+      display: none;
+   }
+
+   .site-header {
+      top: "0px";
+   }
+
+   .site-branding img,
+   .site-header .site-logo-img .custom-logo-link img {
+      max-width: 70px;
+   }
+}
+
+.site-title a,
+.site-title a:focus,
+.site-title a:hover,
+.site-title a:visited {
+   color: $color_1;
+}
+
+.users_city {
+   display: inline-flex;
+   vertical-align: middle;
+   align-items: center;
+   line-height: 1;
+   align-self: center;
+}
+
+.HeaderUserName {
+   max-width: 100px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   position: relative;
+   & a {
+      color: $color_3;
+      text-align: center;
+   }
+
+   &__image-container {
+      & img {
+         border-radius: 50%;
+         max-width: 32px;
+         //       position: absolute;
+         //top: 50%;
+         //left: 50%;
+         //max-width: 100%;
+         //transform: translate(-50%,-50%);
+      }
+
+      &__name {
+         font-size: 14px;
+      }
+      &:hover ~ .menu_users {
+         display: inline-table;
+      }
+   }
+}
+.menu_users {
+   position: absolute;
+   display: none;
+   min-width: 140px;
+   top: 48px;
+   margin-left: -10px;
+   border-top: 1px solid #dcdcdc;
+   box-shadow: 0 5px 17px rgba(0, 0, 0, 0.15);
+   z-index: 1001;
+   background: #fff;
+   border-radius: 4px;
+   padding: 15px 0;
+   font-size: 14px;
+   line-height: 20px;
+   text-align: left !important;
+   &:hover {
+      display: inline-table;
+   }
+   & .menu__users__men_verh_lev {
+   }
+}
+
+.site-title {
+   animation-name: my_bounceIn;
+   animation-duration: 3s;
+   animation-delay: 0.6s; // определяет время задежки перед стартом
+   animation-iteration-count: 2; //infinite
+}
+
+@keyframes my_bounceIn {
+   0% {
+      transform: translateY(-100%);
+      opacity: 0;
+   }
+
+   15% {
+      transform: translateY(0);
+      padding-bottom: 4px;
+   }
+
+   30% {
+      transform: translateY(-50%);
+   }
+
+   40% {
+      transform: translateY(0%);
+      padding-bottom: 5px;
+   }
+
+   50% {
+      transform: translateY(-30%);
+   }
+
+   70% {
+      transform: translateY(0%);
+      padding-bottom: 5px;
+   }
+
+   80% {
+      transform: translateY(-15%);
+   }
+
+   90% {
+      transform: translateY(0%);
+      padding-bottom: 6px;
+   }
+
+   95% {
+      transform: translateY(-7%);
+   }
+
+   97% {
+      transform: translateY(0%);
+      padding-bottom: 7px;
+   }
+
+   99% {
+      transform: translateY(-3%);
+   }
+
+   100% {
+      transform: translateY(0);
+      padding-bottom: 7px;
+      opacity: 1;
+   }
+}
+
+@media (max-width: 940px) {
+   .h-top {
+      display: none;
+   }
+
+   .users {
+      padding-left: 10px;
+   }
+
+   .users_city {
+      display: block;
+      vertical-align: middle;
+      align-items: center;
+      line-height: 1;
+      align-self: center;
+      text-align: center;
+   }
+}
+
+@media (max-width: 767px) {
+   .HeaderUserName {
+      & a {
+      }
+
+      &__image-container {
+      }
+   }
+}

@@ -31,10 +31,10 @@
         padding: 5px 20px 13px 20px;
         border-radius: 10px;
         background: #fff;
-        //  background: -moz-linear-gradient(to right, #fff 90%, rgb(94, 67, 248) 50%);
-        background: -webkit-linear-gradient(#fff 90%, rgb(94, 67, 248) 50%);
-        background: -o-linear-gradient(#fff 90%, rgb(94, 67, 248) 50%);
-        background: linear-gradient(#fff 90%, rgb(94, 67, 248) 50%);
+        background: -moz-linear-gradient(to right, #fff 50%, rgb(94, 67, 248) 50%);
+        background: -webkit-linear-gradient(to right, #fff 50%, rgb(94, 67, 248) 50%);
+        background: -o-linear-gradient(to right, #fff 50%, rgb(94, 67, 248) 50%);
+        background: linear-gradient(to right, #fff 50%, rgb(94, 67, 248) 50%);
         & p {
             text-align: justify;
             padding-top: 5px;

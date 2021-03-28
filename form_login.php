@@ -1,6 +1,6 @@
 <?php
 
-
+ //global $user_ID, $user_identity, $user_level; 
 
 $admin_email=get_option('admin_email'); // получить опциии для sample_theme_option
 
@@ -16,12 +16,11 @@ if(isset($_POST["zakaz_zvonka"])) {
   */    
   ?>
 
-<div>
+<div class="wplb_holder <?php echo is_user_logged_in() ? 'wplb_alert wplb_signon' : ''?>">
 
-    
-    
+
 		<a title="Закрыть" class="close" onClick="div_hide('openModal');" >X</a>
-		<p class="p_centr p_mad_title">Вход </p>  
+		<p class="p_centr p_mad_title">Вход 1</p>  
 
     <?php
     if (!$_COOKIE["wordpress_test_cookie"]) {
@@ -35,40 +34,34 @@ if(isset($_POST["zakaz_zvonka"])) {
       <?php
     }
     ?>
-
-    <form name="loginform" id="loginform" action="<?php bloginfo('url') ?>/wp-login.php" method="post" data-type="authorization"> 
+    <!--
+        <form name="loginform" id="loginform" action="<?php //bloginfo('url') ?>/wp-login.php" method="post" data-type="authorization"> 
+    
+        <form name="loginform" id="loginform" action="login"  method="post" data-type="authorization"> 
+    -->
+  <form name="loginform" onsubmit="return false;"  id="loginform" action="<?php //bloginfo('url') ?>/wp-login.php" method="post" data-type="authorization"> 
 
     <div class="form-login"> 
 
     <p class="msgs"></p>
 
     <?php
-if(isset($_GET['login']) && $_GET['login'] == 'failed')
-{
-     ?>
-          <!-- Сообщение при ошибке -->
-                    <div class="">
-                      <p>Ошибка входа: вы ввели неверное имя пользователя или пароль, попробуйте еще раз.</p>
-                    </div>
+      if(isset($_GET['login']) && $_GET['login'] == 'failed')
+      {
+          ?>
+                <!-- Сообщение при ошибке -->
+                          <div class="text-danger">
+                            <p class="t-c">Ошибка входа: вы ввели неверное имя пользователя или пароль, попробуйте еще раз.</p>
+                          </div>
 
-<?php } ?>
+      <?php } ?>
 
-<!-- элемент для вывода ошибок -->
-    <div class="text-danger text-c" id="recaptchaError">
+      <!-- элемент для вывода ошибок -->
+          <div class="text-danger t-c" id="recaptchaError">
 
-    </div>
-
-<?php
-if(isset($_GET['login']) && $_GET['login'] == 'failed')
-{
-     ?>
-          <!-- Сообщение при ошибке -->
-                    <div class="form-error d-none">
-                    <p>Ошибка входа: вы ввели неверное имя пользователя или пароль, попробуйте еще раз.</p>
           </div>
 
-<?php } ?>
-
+     
           <div class="mform-error  d-none" style="z-index: 1001; position: absolute;
             top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 1.25rem; z-index: 1000;">
             Сбой! Вход не выполнен!
@@ -84,7 +77,7 @@ if(isset($_GET['login']) && $_GET['login'] == 'failed')
           </div>
 
             <!-- Сообщение об успешной отправки формы -->
-        <div class="form-result-success d-none text-c" style="position: absolute;
+        <div class="form-result-success d-none t-c" style="position: absolute;
         top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 1.25rem; z-index: 1000;">
           <div class=" alert-success " style="z-index: 1001;">Вход совершен.
           </div>
@@ -121,8 +114,8 @@ if(isset($_GET['login']) && $_GET['login'] == 'failed')
               </div>
      
 
-      <input type="hidden" name="emailto" class="form-control" value="<?php echo $admin_email ; ?>"  >
-      <input type="hidden" name="url_str" class="form-control" value="<?php echo $url_str ; ?>"  >                 
+      <input type="hidden" name="emailto" class="form-control" value="<?php //echo $admin_email ; ?>"  >
+      <input type="hidden" name="url_str" class="form-control" value="<?php //echo $url_str ; ?>"  >                 
        -->
        
 
@@ -136,17 +129,27 @@ if(isset($_GET['login']) && $_GET['login'] == 'failed')
 
       светлый или темный внешний вид — data-theme=»light» или data-theme=»dark».
       нормальный или компактный размер — data-size=»compact», data-size=»norml»
+
+       type="button"  type="submit" 
 -->    
       <div class='div_sub'>  
       <input class='sub_form' type="submit" name="wp-submit" id="wp-submit" value="Вход"  /> 
       
        </div>
 
+        
+          <span class="wplb_loading t-c"> Загрузка... </span>
+       
+<!-- элемент для вывода ошибок -->
+
+       <div class="wplb_alert text-danger t-c"></div>
+
     <div class="signin-signup__content"> 
 
       <div class="checkbox-after-label">
         <span class="js-inPopup">
-          <input class="js-inPopup"  name="rememberme" type="checkbox" id="rememberme" value="forever" /> Запомнить меня</span>
+          <input class="js-inPopup"  name="rememberme" type="checkbox" id="rememberme" value="true" checked /> 
+        Запомнить меня</span>
       </div>  
             <span class="span_logintpassword">
             <a href="<?php bloginfo( 'url' ) ?>/wp-login.php?action=lostpassword">Забыли пароль? </a> </span> 
@@ -154,15 +157,19 @@ if(isset($_GET['login']) && $_GET['login'] == 'failed')
     </div>
 
 </div>
-<!--  в атрибуте value укажите страницу, на которую хотите редиректить пользователя после входа на сайт. -->
+    <!--  в атрибуте value укажите страницу, на которую хотите редиректить пользователя после входа на сайт. -->
           <input type="hidden" name="redirect_to" value="<?php bloginfo('url') ?>/" /> 
           <input type="hidden" name="testcookie" value="1" />
-     
+
+      
      </form>
 
-     <div class="form-login2"> 
 
-     <div class="user_name text-c" >
+
+
+     <div class="form-login_niz"> 
+
+     <div class="user_name t-c" >
        <span>или войти через</span>
      </div>
 
@@ -203,7 +210,9 @@ if(isset($_GET['login']) && $_GET['login'] == 'failed')
     <a href="/reg" class="link_logo" >Зарегистрироваться</a>
     </div>
     
-    </div>
+
+
+ </div>
 
 
 <script>

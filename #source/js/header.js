@@ -19,116 +19,113 @@ $(function () {
 
 
 
-$(document).ready(function () {
 
 
+// Простая функция для получения get:
+function $_GET(key) {
+   var p = window.location.search;
+   p = p.match(new RegExp(key + '=([^&=]+)'));
+   return p ? p[1] : false;
+}
+// вкл модальное окно
+if ($_GET('logform') == 'y') {
+   $("#openModal").show();
+   //  div_hide('openModal')
+}
 
-
-   // Простая функция для получения get:
-   function $_GET(key) {
-      var p = window.location.search;
-      p = p.match(new RegExp(key + '=([^&=]+)'));
-      return p ? p[1] : false;
-   }
-   // вкл модальное окно
-   if ($_GET('logform') == 'y') {
-      $("#openModal").show();
-      //  div_hide('openModal')
-   }
-
-   // *************
-
-   jQuery("#loginform-custom").submit(function () {
-      var isFormValid = true;
-      jQuery("input").each(function () {
-         if (jQuery.trim($(this).val()).length == 0) {
-            jQuery(this).addClass("submit_error");
-            isFormValid = false;
-         }
-         else {
-            jQuery(this).removeClass("submit_error");
-         }
-      });
-      return isFormValid;
-   });
-
-   // end выбор города
-   /*
-      function setCookie(cname, cvalue, exdays) {
-         var d = new Date();
-         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-         var expires = "expires=" + d.toUTCString();
-         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-         console.log(document.cookie); // выводим куки
-         location.reload();
+// *************
+/*
+jQuery("#loginform-custom").submit(function () {
+   var isFormValid = true;
+   jQuery("input").each(function () {
+      if (jQuery.trim($(this).val()).length == 0) {
+         jQuery(this).addClass("submit_error");
+         isFormValid = false;
       }
-   
-   
-      $("#selectItem").change(function () {
-         //    $('.containerss').find('div').hide();
-         var selected = $('#selectItem option:selected').attr('id');
-         var name = $('#selectItem option:selected').attr('name');
-         console.log('selected ' + selected); //
-         localStorage.setItem("myKey", selected);
-         $('.' + selected).show();
-         setCookie('city', name);
-   
-      });
-   */
-   //
-
-
-
-
-   /****** кнопка вверх ********/
-   $(window).scroll(function () {
-      if ($(this).scrollTop() > 100) {
-         $('.but__backToTop').fadeIn();
-      } else {
-         $('.but__backToTop').fadeOut();
+      else {
+         jQuery(this).removeClass("submit_error");
       }
    });
-
-   $('.but__backToTop').click(function () {
-      $("html, body").animate({
-         scrollTop: 0
-      }, 600);
-      return false;
-   });
-
-   //  Применим к слайду в Elementor. Найдем ссылка с именем Заголовка рисунка и изменим на нужную ссылку *****/
-
-   // $("a[data-elementor-lightbox-title='Акция Подарок']").attr('href', 'http://best/actions/podarok-s-zabotoi/')
-   // var a_slyd = $("a[data-elementor-lightbox-title='Акция Подарок']");
-   //! как вывести объект в консоль
-   //Используйте собственный метод JSON.stringify. Этот метод поддерживает работы с вложенными объектами и всеми основными браузерами.
-   //str2 = JSON.stringify(a_slyd, null, 4); // (Optional) beautiful indented output.
-   //   console.log('a_slyd ' + str2); //
-
-
-
-   /*доб стили разделителей в меню*/
-
-   var header = $('#header');
-   var heightHeader = header.height;
-   /*
-   if (window.matchMedia('(max-width: 768px)').matches) {
-      $('.site-header').css({
-         top: '0px',
-      })
+   return isFormValid;
+});
+*/
+// end выбор города
+/*
+   function setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      console.log(document.cookie); // выводим куки
+      location.reload();
    }
-   */
+ 
+ 
+   $("#selectItem").change(function () {
+      //    $('.containerss').find('div').hide();
+      var selected = $('#selectItem option:selected').attr('id');
+      var name = $('#selectItem option:selected').attr('name');
+      console.log('selected ' + selected); //
+      localStorage.setItem("myKey", selected);
+      $('.' + selected).show();
+      setCookie('city', name);
+ 
+   });
+*/
+//
 
 
-   //   проверка существования куки и блокируем кнопку
 
-   if ($.cookie("wordpress_test_cookie") == null) {
-      console.log('Cookie Is Null'); // выводим 
-      $("#wp-submit").prop('disabled', true); // добавляем атрибут
+
+/****** кнопка вверх ********/
+$(window).scroll(function () {
+   if ($(this).scrollTop() > 100) {
+      $('.but__backToTop').fadeIn();
    } else {
-      console.log('Cookie = ' + cookieExist); // выводим все куки
-      $("#wp-submit").prop('disabled', false); // удаляем атрибут
+      $('.but__backToTop').fadeOut();
    }
+});
+
+$('.but__backToTop').click(function () {
+   $("html, body").animate({
+      scrollTop: 0
+   }, 600);
+   return false;
+});
+
+//  Применим к слайду в Elementor. Найдем ссылка с именем Заголовка рисунка и изменим на нужную ссылку *****/
+
+// $("a[data-elementor-lightbox-title='Акция Подарок']").attr('href', 'http://best/actions/podarok-s-zabotoi/')
+// var a_slyd = $("a[data-elementor-lightbox-title='Акция Подарок']");
+//! как вывести объект в консоль
+//Используйте собственный метод JSON.stringify. Этот метод поддерживает работы с вложенными объектами и всеми основными браузерами.
+//str2 = JSON.stringify(a_slyd, null, 4); // (Optional) beautiful indented output.
+//   console.log('a_slyd ' + str2); //
+
+
+
+/*доб стили разделителей в меню*/
+
+var header = $('#header');
+var heightHeader = header.height;
+/*
+if (window.matchMedia('(max-width: 768px)').matches) {
+   $('.site-header').css({
+      top: '0px',
+   })
+}
+*/
+
+
+//   проверка существования куки и блокируем кнопку
+
+if ($.cookie("wordpress_test_cookie") == null) {
+   console.log('Cookie Is Null'); // выводим 
+   $("#wp-submit").prop('disabled', true); // добавляем атрибут
+} else {
+   console.log('Cookie = ' + cookieExist); // выводим все куки
+   $("#wp-submit").prop('disabled', false); // удаляем атрибут
+}
 
    // ***
 

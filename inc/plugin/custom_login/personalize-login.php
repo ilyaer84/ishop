@@ -136,7 +136,7 @@ if(isset($_POST["zakaz_zvonka"])) {
      
      </form>
 
-     <div class="form-login2"> 
+     <div class="form-login_niz"> 
 
      <div class="user_name text-c" >
        <span>или войти через</span>

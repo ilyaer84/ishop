@@ -1,0 +1,104 @@
+.ast-woo-shop-archive .site-content>.ast-container {
+   padding-top: 5em;
+}
+
+.ast-right-sidebar #primary {
+   border-right: 1px solid #eee;
+   padding-top: 1em;
+}
+
+article .ast-no-meta {
+   padding-top: 3em;
+}
+
+.ast-woocommerce-container {
+   // padding-top: 2em;
+}
+
+div.product .sale {}
+
+.woocommerce div.product {
+   padding-top: 3em;
+
+   & .onsale {
+      margin-top: 2em;
+   }
+}
+
+header .site-logo-img .custom-logo-link img {
+   max-width: 70px;
+}
+
+ul.products li.product {
+   word-wrap: break-word;
+   box-shadow: 0 25px 25px rgba(30, 31, 33, 0.12);
+
+   &:hover {
+      box-shadow: 0 15px 25px $color_3;
+   }
+}
+
+// главная
+.woocommerce ul.products li.product,
+.woocommerce-page ul.products li.product {
+   text-align: center;
+}
+
+.woocommerce ul.products li.product .star-rating,
+.woocommerce-page ul.products li.product .star-rating {
+   margin: 0 auto;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title,
+.woocommerce-page ul.products li.product .woocommerce-loop-product__title {
+   //  min-height: 50px;
+   //
+   max-height: 70px;
+   overflow: hidden;
+   height: 55px;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__link,
+.woocommerce-page ul.products li.product .woocommerce-loop-product__link {
+   min-height: 50px;
+   overflow: hidden;
+   max-height: 170px;
+}
+
+@media (max-width: 375) {
+   .woocommerce div.product {
+      padding-top: 10em;
+   }
+}
+
+@media (max-width: 767px) {
+   .woocommerce div.product {
+      padding-top: 8em;
+   }
+
+   .ast-woocommerce-container {
+      padding-top: 7em;
+   }
+}
+
+@media (max-width: 1040px) {
+   .woocommerce div.product {
+      padding-top: 8em;
+   }
+}
+
+@media (max-width: 1182px) {
+   article .ast-no-meta {
+      padding-top: 9em;
+   }
+
+   .ast-woocommerce-container {
+      padding-top: 5em;
+   }
+
+   .woocommerce div.product {
+      & .onsale {
+         margin-top: 4em;
+      }
+   }
+}

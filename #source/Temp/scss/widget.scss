@@ -1,0 +1,22 @@
+// для виджетов 
+.widget_recent_entries {
+   padding-top: 15px;
+
+   & .menu {
+      //font-size: 1.5vw;
+   }
+
+   & ul li {
+      padding-left: 15px;
+   }
+
+   & a {
+      color: #989696;
+      ;
+   }
+}
+
+// виджет комментарии
+.widget_recent_comments {
+   display: none;
+}

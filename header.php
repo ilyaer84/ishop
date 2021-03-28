@@ -16,7 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <!DOCTYPE html>
-<?php astra_html_before(); ?>
+<?php astra_html_before(); 
+
+
+
+?>
 <html <?php language_attributes(); ?>>
 <head>
 <?php astra_head_top(); ?>

@@ -1,12 +1,23 @@
 jQuery(document).ready(function ($) {
-	console.log('Hi? login'); // выводим 
+
+	// CORS
+	/*
+	header('Content-Type: application/json');
+	header('Access-Control-Allow-Origin: *');  // разрешить все домены Разрешённые источники
+	header('Access-Control-Allow-Methods: GET, POST, OPTIONS'); //  С ним будут разрешены только те запросы из других источников, которые выполнены с применением перечисленных методов.
+	header('Access-Control-Allow-Headers: Content-Type');
+	header('Access-Control-Allow-Credentials: true');
+	*/
+	console.log('Hi? login'); // выводим
 
 	// скрипт передача аякс запроса авторизации, можно несколько форм -> по какой кнопке
-	'use strict'; // это так называемый «строгом режиме», который заметно ограничивает синтаксис котором можно пользоваться. 
-	'esversion: 6'; // что мы используем синтаксис ECMAScript версии 6, а так версия вышла аж в 2015 году, то за совместимость с браузерами сомневаться не приходится. 
+	'use strict'; // это так называемый «строгом режиме», который заметно ограничивает синтаксис котором можно пользоваться.
+	'esversion: 6'; // что мы используем синтаксис ECMAScript версии 6, а так версия вышла аж в 2015 году, то за совместимость с браузерами сомневаться не приходится.
 
 	// Функция отправки форм.
-	$('.openModal').on('submit', 'form', function (ev) {
+	$('.wplb_holder').on('submit', 'form', function (ev) {
+		//e.preventDefault(); // предотвращаем отправку формы
+
 		// Определяем какую форму пользователь заполнил.
 		let this_is = $(this);
 
@@ -34,15 +45,15 @@ jQuery(document).ready(function ($) {
 				// Передаём значения формы.
 				'content': $(this).serialize(),
 
-				// Используем nonce для защиты.
+				// Используем   для защиты.
 				'security': wplb_ajax_obj.nonce,
 
 				// Перед отправкой Ajax запроса.
 				beforeSend: function () {
 
-					// Спрячем кнопку и аокажем что скрипт работает.
+					// Спрячем кнопку и покажем что скрипт работает.
 					button.hide();
-					this_is.find('.wplb_alert').hide(); // ! остановка
+					this_is.find('.wplb_alert').hide();
 					this_is.find('.wplb_loading').show();
 				}
 			}
@@ -65,13 +76,28 @@ jQuery(document).ready(function ($) {
 
 					//Пришла ошибка, скрываем не нужные элементы и возвращаем кнопку.
 					this_is.find('.wplb_alert').addClass('wplb_alert_error').html($result.content).show();
-
+					console.log('$result.content' + $result.content); // выводим
 					button.show();
+					//$('.wplb_holder').addClass('wplb_alert wplb_signon').html('<p style="margin-bottom:3px;"><strong>  УПС  !!!</strong></p>');
+
 
 				} else {
 
+
+					setTimeout(function () {
+						$('.form-result-success').toggleClass('d-none');
+						div_hide('openModal');
+						//$('#recaptchaError').text('');
+						//console.log('AJAX response : ', response);
+						//$('input').not(':input[type=submit], :input[type=hidden]').val('');
+						//$('textarea').val('');
+					}, 2200);
+					$('.form-result-success').toggleClass('d-none');
+					//	window.location.reload();  // Перезагрузка страницы
+
 					// Пользователь авторизован, покажем ему сообщение.
-					$('.wplb_holder').addClass('wplb_alert wplb_signon').html('<p style="margin-bottom:3px;"><strong>Добро пожаловать!</strong></p>Ajax выполнил свою работу, вы в системе! Перезагрузите страницу и убедитесь.');
+					// $('.wplb_holder').addClass('wplb_alert wplb_signon').html('<p style="margin-bottom:3px;"><strong>Добро пожаловать!</strong></p>Ajax выполнил свою работу, вы в системе! Перезагрузите страницу и убедитесь.');
+
 				}
 
 			})
@@ -83,9 +109,12 @@ jQuery(document).ready(function ($) {
 			});
 
 		// Предотвращаем действие, заложенное в форму по умолчанию.
-		ev.preventDefault();
+		//	ev.preventDefault();
+		e.preventDefault();
+		//event.preventDefault();
+
 	});
 
-	console.log('Hi? login'); // выводим 
+	console.log('Hi? login'); // выводим
 
 });
