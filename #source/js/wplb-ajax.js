@@ -76,7 +76,7 @@ jQuery(document).ready(function ($) {
 
 					//Пришла ошибка, скрываем не нужные элементы и возвращаем кнопку.
 					this_is.find('.wplb_alert').addClass('wplb_alert_error').html($result.content).show();
-					console.log('$result.content' + $result.content); // выводим
+					//console.log('$result.content' + $result.content); // выводим
 					button.show();
 					//$('.wplb_holder').addClass('wplb_alert wplb_signon').html('<p style="margin-bottom:3px;"><strong>  УПС  !!!</strong></p>');
 
@@ -93,7 +93,8 @@ jQuery(document).ready(function ($) {
 						//$('textarea').val('');
 					}, 2200);
 					$('.form-result-success').toggleClass('d-none');
-					//	window.location.reload();  // Перезагрузка страницы
+					//console.log('$remem ' + $remem);
+					window.location.reload();  // Перезагрузка страницы
 
 					// Пользователь авторизован, покажем ему сообщение.
 					// $('.wplb_holder').addClass('wplb_alert wplb_signon').html('<p style="margin-bottom:3px;"><strong>Добро пожаловать!</strong></p>Ajax выполнил свою работу, вы в системе! Перезагрузите страницу и убедитесь.');
@@ -110,8 +111,8 @@ jQuery(document).ready(function ($) {
 
 		// Предотвращаем действие, заложенное в форму по умолчанию.
 		//	ev.preventDefault();
-		e.preventDefault();
-		//event.preventDefault();
+		//e.preventDefault();
+		event.preventDefault();
 
 	});
 

@@ -673,7 +673,7 @@ function wplb_ajax_request() {
 				$creds = array(
 					'user_login' => $creds[ 'log' ], // Логин пользователя
 					'user_password' => $creds[ 'pwd' ], // Пароль пользователя
-					'remember' => true, // true  $remem, // Запомнинаем
+					'remember' => $remem, // true  $remem, // Запомнинаем
 				);
 
 				// Пробуем авторизовать пользователя.
