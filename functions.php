@@ -126,6 +126,7 @@ include_once(__DIR__ . '/inc/admin/admin_my_astra.php');
    
       //прежде пользумся ивентовой моделью
    wp_enqueue_style('main', get_stylesheet_directory_uri() . '/assets/css/styles.css'); 
+   wp_enqueue_style('main_icon', get_stylesheet_directory_uri() . '/assets/css/iconsfont.css'); 
    // (название , адресс) get_template_directory_uri - расположение темы 
  
   
@@ -268,6 +269,8 @@ add_action('widgets_init', function(){  // widgets_init название хук�
 
   include_once(__DIR__ . '/inc/plugin/custom-registration/custom-registration.php'); // однократного включения, регистрация 
   
+  include_once(__DIR__ . '/inc/plugin/SocialAuther/SocialAuther.php'); // однократного включения, авторизация через соц сети 
+
 // include_once(__DIR__ . '/inc/plugin/custom-registration/reg_prof.php'); // однократного включения, регистрация 
 
  //  include_once(__DIR__ . '/inc/my/avatar_my.php');  //работаем с аватарами  + js надо поключить
@@ -392,6 +395,7 @@ function my_wp_logout() {
 
 
 // ! загрузить SVG
+/*
 add_filter( 'upload_mimes', 'svg_upload_allow' );
 
 # Добавляет SVG в список разрешенных для загрузки файлов.
@@ -400,6 +404,7 @@ function svg_upload_allow( $mimes ) {
 
 	return $mimes;
 }
+*/
 //
 
 // ! Работаем с формой поиска woocommerce

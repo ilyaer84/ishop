@@ -164,9 +164,6 @@ if(isset($_POST["zakaz_zvonka"])) {
       
      </form>
 
-
-
-
      <div class="form-login_niz"> 
 
      <div class="user_name t-c" >
@@ -174,17 +171,26 @@ if(isset($_POST["zakaz_zvonka"])) {
      </div>
 
 <!--  Вход через социльные сети -->
-     <div class="social-likes social-likes_visible">
+     <div class="social-likes m-c">
+      <div class="m-c">
+        <a class="mod_icon  z_vk icon-vk " href="http://avito-pro/auth?provider=vk" title="Авторизоваться через Вконтакте">  </a>
+      </div>
 
-       <a class="external-auth-providers__provider" href="https://freelance.habr.com/auth/tmid/login" title="Авторизоваться через Habr Account">
+      <div class="m-c">
+        <a class="mod_icon red icon-yandex" href="" title="Авторизоваться через Яндекс">  </a>
+      </div>
+<!--
+
+       <a class="external-auth-providers__provider icon-viber" href="https://oauth.vk.com/authorize?client_id=7725386&display=popup&redirect_uri=http://avito-pro/callback&scope=friends&response_type=code" title="Авторизоваться через Habr Account">
        <svg class="svg-icon svg-icon--icon-habr svg-icon--type-external-auth">
-         <use xlink:href="/assets/svg/services-8aabfac2ddad40fec69762be46e382dcca48cc1a302d69a2b38b769e79b26f4f.svg#habr">
+         <use xlink:href="/assets/iconsfont/svg/apple-alt.svg">
         </use>   </svg>  </a>
 
       <a class="external-auth-providers__provider" href="/users/auth/facebook" title="Авторизоваться через Facebook">
       <svg class="svg-icon svg-icon--icon-facebook svg-icon--type-external-auth">
         <use xlink:href="/assets/svg/services-8aabfac2ddad40fec69762be46e382dcca48cc1a302d69a2b38b769e79b26f4f.svg#facebook">
       </use></svg></a>
+-->
       
     </div>
 
@@ -207,7 +213,7 @@ if(isset($_POST["zakaz_zvonka"])) {
     <div class="signin-signup__content">
       <span>Нет аккаунта? </span>
     <!--  <a class="signin-signup-footer-link" onclick="show_signup(); return false;">Зарегистрироваться</a> -->
-    <a href="/reg" class="link_logo" >Зарегистрироваться</a>
+    <a href="/reg"  class="link_logo" >Зарегистрироваться</a>
     </div>
     
 

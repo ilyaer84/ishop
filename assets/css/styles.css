@@ -179,6 +179,14 @@ a.no-after:after {
   text-align: center !important;
 }
 
+.m-c {
+  margin: 0 auto;
+}
+
+.z_vk {
+  color: #4d7198;
+}
+
 /*** a стили с плавным подчеркиванием ссылки***/
 /*
 a {
@@ -1350,6 +1358,7 @@ ul.products li.product:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
 }
 
 .wplb_loading {
@@ -1395,6 +1404,15 @@ ul.products li.product:hover {
     padding: 0 0;
   }
 }
+.mod_icon {
+  font-size: 70px;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  text-shadow: 0 2px 2px #000;
+  margin: 0px 10px 0px 0px;
+}
+
 /*
 @import "header.scss";
 @import "widget.scss";

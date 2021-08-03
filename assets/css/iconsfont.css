@@ -1,0 +1,170 @@
+@font-face {
+  font-family: "icons";
+  src: url("../iconsfont/fonts/icons.ttf?8einq4") format("truetype"),
+    url("../iconsfont/fonts/icons.woff?8einq4") format("woff"),
+    url("../iconsfont/fonts/icons.svg?8einq4#icons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"]::before,
+[class*=" icon-"]::before {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icons" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-apple-alt:before {
+  content: "\e900";
+}
+.icon-basketball-ballbasketball-ball:before {
+  content: "\e901";
+}
+.icon-bath:before {
+  content: "\e902";
+}
+.icon-battery-full:before {
+  content: "\e903";
+}
+.icon-bed-alt:before {
+  content: "\e904";
+}
+.icon-bells:before {
+  content: "\e905";
+}
+.icon-css3-alt:before {
+  content: "\e906";
+}
+.icon-facebook:before {
+  content: "\e907";
+}
+.icon-github:before {
+  content: "\e908";
+}
+.icon-google:before {
+  content: "\e909";
+}
+.icon-google-drive:before {
+  content: "\e90a";
+}
+.icon-google-pay:before {
+  content: "\e90b";
+}
+.icon-google-plus:before {
+  content: "\e90c";
+}
+.icon-google-plus-square:before {
+  content: "\e90d";
+}
+.icon-html5:before {
+  content: "\e90e";
+}
+.icon-instagram:before {
+  content: "\e90f";
+}
+.icon-node-js:before {
+  content: "\e910";
+}
+.icon-odnoklassniki-square:before {
+  content: "\e911";
+}
+.icon-paypal:before {
+  content: "\e912";
+}
+.icon-php:before {
+  content: "\e913";
+}
+.icon-twitter-square:before {
+  content: "\e914";
+}
+.icon-viber:before {
+  content: "\e915";
+}
+.icon-vk:before {
+  content: "\e916";
+}
+.icon-whatsapp-square:before {
+  content: "\e917";
+}
+.icon-windows:before {
+  content: "\e918";
+}
+.icon-yandex:before {
+  content: "\e919";
+}
+.icon-youtube:before {
+  content: "\e91a";
+}
+.icon-home:before {
+  content: "\e91b";
+}
+.icon-images:before {
+  content: "\e91c";
+}
+.icon-camera:before {
+  content: "\e91d";
+}
+.icon-headphones:before {
+  content: "\e91e";
+}
+.icon-music:before {
+  content: "\e91f";
+}
+.icon-mic:before {
+  content: "\e920";
+}
+.icon-qrcode:before {
+  content: "\e938";
+}
+.icon-phone:before {
+  content: "\e942";
+}
+.icon-bin:before {
+  content: "\e9ac";
+}
+.icon-wink2:before {
+  content: "\e9e8";
+}
+.icon-checkmark2:before {
+  content: "\ea11";
+}
+.icon-enter:before {
+  content: "\ea13";
+}
+.icon-exit:before {
+  content: "\ea14";
+}
+.icon-mail:before {
+  content: "\ea83";
+}
+.icon-telegram:before {
+  content: "\ea95";
+}
+.icon-twitter:before {
+  content: "\ea96";
+}
+.icon-vk1:before {
+  content: "\ea98";
+}
+.icon-youtube2:before {
+  content: "\ea9e";
+}
+.icon-github1:before {
+  content: "\eab0";
+}
+.icon-appleinc:before {
+  content: "\eabe";
+}
+.icon-android:before {
+  content: "\eac0";
+}

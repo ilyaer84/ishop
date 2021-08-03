@@ -1,0 +1,19 @@
+/**
+Theme Name: avito-pro team
+Theme URI: 
+Author: ER
+Author URI: 
+Description: Дочерняя тема Astra
+Template: astra
+Version: 1.1.0
+License: 
+License URI: 
+Text Domain: astra
+Domain Path: /languages
+Tags: custom-menu, custom-logo, entertainment, one-column, two-columns, left-sidebar, e-commerce, right-sidebar, custom-colors, editor-style, featured-images, full-width-template, microformats, post-formats, rtl-language-support, theme-options, threaded-comments, translation-ready, blog
+ */
+
+/* импортируем стили родительской темы */
+/*@import url("../my-rife/style.css");
+
+/* Свои дополнительные стили */

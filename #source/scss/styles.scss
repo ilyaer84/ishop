@@ -52,7 +52,14 @@ a.no-after:after {
 .t-c {
    text-align: center !important;
 }
+.m-c {
+   margin: 0 auto;
+}
 
+// цвета
+.z_vk {
+   color: #4d7198;
+}
 /*** a стили с плавным подчеркиванием ссылки***/
 /*
 a {
@@ -91,6 +98,7 @@ a {
 @import "glav.scss";
 @import "woocomcss.scss";
 @import "modal.scss";
+@import "icon.scss";
 /*
 @import "header.scss";
 @import "widget.scss";
