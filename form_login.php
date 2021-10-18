@@ -14,9 +14,13 @@ $url_str = get_permalink();
 if(isset($_POST["zakaz_zvonka"])) {
   include(__DIR__ . '/assets/modul/email.php'); }
   */    
+
+  include_once(get_stylesheet_directory() . '/inc/plugin/MySocAuther/Auther.php');
+
   ?>
 
-<div class="wplb_holder <?php echo is_user_logged_in() ? 'wplb_alert wplb_signon' : ''?>">
+<div class="wplb_holder <?php echo is_user_logged_in() ? // Проверяет авторизован ли пользователь (вошел ли пользователь под своим логином). Возвращает true, если пользователь авторизован и false, если нет.
+                                 'wplb_alert wplb_signon' : ''?>">
 
 
 		<a title="Закрыть" class="close" onClick="div_hide('openModal');" >X</a>
@@ -40,7 +44,7 @@ if(isset($_POST["zakaz_zvonka"])) {
         <form name="loginform" id="loginform" action="login"  method="post" data-type="authorization"> 
     -->
   <form name="loginform" onsubmit="return false;"  id="loginform" action="<?php //bloginfo('url') ?>/wp-login.php" method="post" data-type="authorization"> 
-
+   <!--  onsubmit="return false; чтобы форма не отправляла данные  -->
     <div class="form-login"> 
 
     <p class="msgs"></p>
@@ -149,7 +153,7 @@ if(isset($_POST["zakaz_zvonka"])) {
       <div class="checkbox-after-label">
         <span class="js-inPopup">
           <input class="js-inPopup"  name="rememberme" type="checkbox" id="rememberme" value="true" checked /> 
-        Запомнить меня</span>
+        Запомнить меня </span>
       </div>  
             <span class="span_logintpassword">
             <a href="<?php bloginfo( 'url' ) ?>/wp-login.php?action=lostpassword">Забыли пароль? </a> </span> 
@@ -171,14 +175,41 @@ if(isset($_POST["zakaz_zvonka"])) {
      </div>
 
 <!--  Вход через социльные сети -->
-     <div class="social-likes m-c">
+<div class="social-likes m-c">
+          <?PHP
+              //if(empty($_SESSION['id'])) {
+            if(isset($_SESSION['id']) & !empty($_SESSION['id']) ) {
+
+              echo "<div class='t-c'>Вы авторизованы!</div>";
+          
+          } else {
+            ?>
+
+     
       <div class="m-c">
+
+      <?PHP
+              echo $link = '<a class="mod_icon  z_vk icon-vk " href="' . $url_auther . '?' . urldecode(http_build_query($params)) . '"title="Авторизоваться через Вконтакте"></a></div>';
+              // urldecode — Декодирование URL-кодированной строки
+              // http_build_query — Генерирует URL-кодированную строку запроса
+          
+      /*
+      if (!isset($_GET['code'])) {
+
+	    echo '<p><a href="' . $vkAdapter->getAuthUrl() . '">Аутентификация через ВКонтакте</a></p>';
+
+	}
+  */
+?>
+<!--
         <a class="mod_icon  z_vk icon-vk " href="http://avito-pro/auth?provider=vk" title="Авторизоваться через Вконтакте">  </a>
       </div>
-
+-->
       <div class="m-c">
         <a class="mod_icon red icon-yandex" href="" title="Авторизоваться через Яндекс">  </a>
       </div>
+
+      <?PHP } ?>
 <!--
 
        <a class="external-auth-providers__provider icon-viber" href="https://oauth.vk.com/authorize?client_id=7725386&display=popup&redirect_uri=http://avito-pro/callback&scope=friends&response_type=code" title="Авторизоваться через Habr Account">
@@ -221,8 +252,3 @@ if(isset($_POST["zakaz_zvonka"])) {
  </div>
 
 
-<script>
-$(document).ready(function() {
-
-})
-</script>

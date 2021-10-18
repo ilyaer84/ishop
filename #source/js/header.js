@@ -127,10 +127,10 @@ if ($.cookie("wordpress_test_cookie") == null) {
    $("#wp-submit").prop('disabled', false); // удаляем атрибут
 }
 
-   // ***
+// ***
 
 
-})
+
 //  win**************************************************
 
 window.onscroll = function () {

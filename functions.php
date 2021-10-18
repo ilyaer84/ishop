@@ -267,9 +267,11 @@ add_action('widgets_init', function(){  // widgets_init название хук�
    
    // ! свои плагины
 
-  include_once(__DIR__ . '/inc/plugin/custom-registration/custom-registration.php'); // однократного включения, регистрация 
+ // include_once(__DIR__ . '/inc/plugin/custom-registration/custom-registration.php'); // однократного включения, регистрация 
   
-  include_once(__DIR__ . '/inc/plugin/SocialAuther/SocialAuther.php'); // однократного включения, авторизация через соц сети 
+// include_once(__DIR__ . '/inc/plugin/SocialAuther/SocialAuther.php'); // однократного включения, авторизация через соц сети 
+
+// include_once(__DIR__ . '/inc/plugin/my_SocialAuther.php'); // однократного включения, авторизация через соц сети 
 
 // include_once(__DIR__ . '/inc/plugin/custom-registration/reg_prof.php'); // однократного включения, регистрация 
 
@@ -541,6 +543,15 @@ function true_otkljuchaem_stili_contact_form() {
 }
 */
 
+
+// При помощи этого хука можно задать определённые имена пользователей, которые вы бы хотели запретить для регистрации, пример:
+
+add_filter( 'illegal_user_logins', function( $illegal_logins ) {
+ 
+	return array( 'Loh', 'administrator', 'admin' );
+ 
+} );
+
 // !Аякс Авторизация - регистрация
 
 // Добавляем событие в процесс инициализации JS скриптов
@@ -564,7 +575,7 @@ function wplb_ajax_enqueue() {
 		'wplb_ajax_obj', // Название массива, который будет содержать передаваемые данные
 		array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ), // Элемент массива, содержащий путь к admin-ajax.php
-			'nonce' => wp_create_nonce( 'wplb-nonce' ) // Создаем nonce
+			'nonce' => wp_create_nonce( 'wplb-nonce' ) // Создаем nonce Создает уникальный защитный ключ на короткий промежуток времени
 		)
 	);
 
@@ -590,29 +601,43 @@ function wplb_ajax_request() {
 		$result = array( 'status' => false, 'content' => false );
 
 		// Создаём массив который содержит значения полей заполненной формы.
-		parse_str( $_REQUEST[ 'content' ], $creds );
+      parse_str( $_REQUEST[ 'content' ], $creds ); //  Разбирает строку в переменные
+      
 
 		switch ( $_REQUEST[ 'type' ] ) {
-			case 'registration':
+         case 'registration':            
 				/**
 				 * Заполнена форма регистрации.
 				 */
 
+            // Создаём массив с данными для регистрации нового пользователя.
+            $user_data = array(
+               'user_login' => $creds[ 'log' ], // Логин.
+               'user_pass' => $creds[ 'pwd' ], // Пароль.
+               'role' => 'subscriber' // Роль.
+            );
+
 				// Пробуем создать объект с пользователем.
-				$user = username_exists( $creds[ 'wplb_login' ] );
+            //$user = username_exists( $creds[ 'wplb_login' ] );
+            $user = username_exists( $creds[ 'log' ] );
+          //  $result[ 'content' ] .= ' wplb_login =   '. $creds[ 'log' ];
 
 				// Проверяем, а может быть уже есть такой пользователь
-				if ( !$user && false == email_exists( $creds[ 'wplb_email' ] ) ) {
+				if ( !$user ) { // && false == email_exists( $creds[ 'wplb_email' ] ) ) {
 					// Пользователя не существует.
 
-					// Создаём массив с данными для регистрации нового пользователя.
+               // Создаём массив с данными для регистрации нового пользователя.
+               /*
 					$user_data = array(
 						'user_login' => $creds[ 'wplb_login' ], // Логин.
 						'user_email' => $creds[ 'wplb_email' ], // Email.
 						'user_pass' => $creds[ 'wplb_password' ], // Пароль.
 						'display_name' => $creds[ 'wplb_login' ], // Отображаемое имя.
 						'role' => 'subscriber' // Роль.
-					);
+               );
+               */
+
+               
 
 					// Добавляем пользователя в базу данных.
 					$user = wp_insert_user( $user_data );
@@ -621,15 +646,20 @@ function wplb_ajax_request() {
 					if ( is_wp_error( $user ) ) {
 
 						// Невозможно создать пользователя, записываем результат в массив.
-						$result[ 'status' ] = false;
-						$result[ 'content' ] = $user->get_error_message();
+						//$result[ 'status' ] = false;
+                  $result[ 'content' ] .= $user->get_error_message();
 
 					} else {
 
 						// Создаём массив для авторизации.
-						$creds = array(
+						/*$creds = array(
 							'user_login' => $creds[ 'wplb_login' ], // Логин пользователя.
 							'user_password' => $creds[ 'wplb_password' ], // Пароль пользователя.
+							'remember' => true // Запоминаем.
+                  );*/
+                  $creds = array(
+							'user_login' => $creds[ 'log' ], // Логин пользователя.
+							'user_password' => $creds[ 'pwd' ], // Пароль пользователя.
 							'remember' => true // Запоминаем.
 						);
 
@@ -640,7 +670,8 @@ function wplb_ajax_request() {
 
 							// Авторизовать не получилось.
 							$result[ 'status' ] = false;
-							$result[ 'content' ] = $signon->get_error_message();
+                     $result[ 'content' ] .= $signon->get_error_message();
+                     $result[ 'content' ] .= 'Авторизовать не получилось';
 
 						} else {
 
@@ -715,6 +746,7 @@ function wplb_ajax_request() {
 	wp_die();
 }
 
+// end ayax рег авториз
 
 /*
 add_shortcode( 'wplb_ajax_example', 'wplb_ajax_example_function' );
@@ -724,4 +756,190 @@ function wplb_ajax_example_function() {
 	return ob_get_clean();
 }
 */
+
+/**
+ * Направление пользователя на собственную страницу регистрации
+ * вместо wp-login.php?action=register.
+ */
+/*
+public function redirect_to_custom_register() {
+   if ( 'GET' == $_SERVER['REQUEST_METHOD'] ) {
+       if ( is_user_logged_in() ) {
+           $this->redirect_logged_in_user();
+       } else {
+           wp_redirect( home_url( 'member-register' ) );
+       }
+       exit;
+   }
+}
+*/
+
+// Login redirects
+// Направление пользователя при регистрации
+/*
+function custom_login_url() {
+   echo header("Location: " . get_bloginfo( 'url' ) ); //. "/reg");  на стр входа
+}
+ 
+add_action('login_head', 'custom_login_url');
+
+
+function login_link_url( $url ) {
+   $url = get_bloginfo( 'url' ) ; //. "/reg";
+   return $url;
+   }
+add_filter( 'login_url', 'login_link_url', 10, 2 );
+
+// чтобы полностью скрыть стандартную страницу регистрации WordPress:
+function register_link_url( $url ) {
+   if ( ! is_user_logged_in() ) {
+      if ( get_option('users_can_register') )
+    $url = '<li><a href="' . get_bloginfo( 'url' ) . "/reg" . '">' . __('Register', 'yourtheme') . '</a></li>';
+       else  $url = '';
+   } else { 
+         $url = '<li><a href="' . admin_url() . '">' . __('Site Admin', 'yourtheme') . '</a></li>';
+   }
+   return $url;
+ }
+
+ add_filter( 'register', 'register_link_url', 10, 2 );
+*/
+
+
+// !Все для кастомной регистрации, авторизации
+
+// При помощи этого хука можно задать определённые имена пользователей, которые вы бы хотели запретить для регистрации, пример:
+
+add_filter( 'illegal_user_logins', function( $illegal_logins ) {
+ 
+	return array( 'Loh', 'administrator', 'admin' );
+ 
+} );
+
+add_action('init','wpse_login');
+
+function wpse_login(){
+ global $pagenow;
+ if( 'wp-login.php' == $pagenow && !is_user_logged_in()) { // && !is_user_logged_in() )
+  wp_redirect('http://avito-pro/');
+  exit();
+ }
+}
+
+// Как добавить новое поле в Профиль пользователя WordPress
+add_filter('user_contactmethods', 'my_user_contactmethods');
+ 
+function my_user_contactmethods($user_contactmethods){
+ 
+  $user_contactmethods['city'] = 'Город';
+  $user_contactmethods['mobile'] = 'Телефон';
+//  $user_contactmethods['uslov_f'] = 'Согласие с уловием';  
+ 
+  return $user_contactmethods;
+}
+
+
+
+// Как перенаправить пользователя после входа в WordPress
+/*
+function redirect_users_after_login() {
+   $user = wp_get_current_user();
+   $roles = ( array ) $user->roles;
+   $url = 'http://avito-pro';
+   
+   // Редирект для администраторов
+   if ( $roles[0] == 'administrator' ) {
+        wp_redirect( $url );
+        exit;
+   }
+   
+   // Редирект для подписчиков
+   if ( $roles[0] == 'subscriber' ) {
+        wp_redirect( $url );
+        exit;
+   }
+
+   // Редирект для авторов
+   if ( $roles[0] == 'author' ) {
+        wp_redirect( $url );
+        exit;
+   }
+
+   // Редирект для редакторов
+   if ( $roles[0] == 'editor' ) {
+        wp_redirect( $url );
+        exit;
+   }
+
+}
+add_action( 'admin_init', 'redirect_users_after_login' );
+*/
+//
+
+
+add_action('init','my_auth');
+function my_auth(){
+   global $user;
+   global $password;
+   if( $user ) {
+      global $reg_errors;
+/*
+      wp_set_current_user( $user->$user_id, $user->user_login );
+      echo 'ID ===  ' .   $user->$user_id   . '<br />'; 
+      echo 'user_login ' .   $user->user_login   . '<br />';
+      echo 'user_pass ' .   $user->password   . '<br />'; ;
+ 
+      wp_set_auth_cookie( $user->$user_id );
+      do_action( 'wp_login', $user->user_login );
+*/
+//echo 'f login ===  ' .   $user->user_login   . '<br />'; 
+//wtf($user->$user_id );
+/*
+$user['remember'] = true;
+$signon = wp_signon($user, false);
+if (is_wp_error($signon)) 
+echo $signon->get_error_message();
+//print_r($signon);
+
+  }
+
+  $creds = array();
+  $creds['user_login'] = $user->user_login;
+  $creds['user_password'] =  $password ;
+  $creds['remember'] = true;
+  $signon = wp_signon( $creds, false );
+
+  if ( is_wp_error( $signon ) ) {
+
+   // Авторизовать не получилось
+   //$result[ 'status' ] = false;
+   //$result[ 'content' ] = $signon->get_error_message();
+        echo '<div>';
+        echo '<strong>ERROR AUTH </strong>:';
+        echo $signon->get_error_message();    
+        echo '</div>';
+
+} else {
+
+   // Авторизация успешна, устанавливаем необходимые куки.
+       
+   wp_clear_auth_cookie();
+   clean_user_cache( $signon->ID );
+   wp_set_current_user( $signon->ID );
+   wp_set_auth_cookie( $signon->ID );
+   update_user_caches( $signon );
+        
+
+   // Записываем результаты в массив.
+   // $result[ 'status' ] = true;
+}
+   */
+
+}
+
+}
+
+
+
+
 // end 

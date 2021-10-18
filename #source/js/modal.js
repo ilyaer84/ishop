@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     $("#f_sub").hide();
     $("#zvonok .div_sub").append("<input class='bot-send-mail' type='submit' name='zakaz_zvonka' value='Отправить'>");
@@ -8,7 +8,7 @@ $(document).ready(function() {
     //получаем идентификатор элемента
 
     //  $(".bot-send-mail").click(function(e) {
-    $("#zvonok").submit(function(e) {
+    $("#zvonok").submit(function (e) {
         // $('.bot-send-mail').click(function() {
         e.preventDefault();
         var base_url = window.location.origin;
@@ -26,13 +26,13 @@ $(document).ready(function() {
             //    data: formNm.serialize(),
             //dataType: 'json', // data type                
             data: fData, //$(this).serialize(),
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#recaptchaError').text(' Идет передача данных...');
             },
-            success: function(response) {
+            success: function (response) {
 
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $('.form-result-success').toggleClass('d-none');
                     div_hide('openModal');
                     $('#recaptchaError').text('');
@@ -44,7 +44,7 @@ $(document).ready(function() {
 
             },
 
-            error: function(jqXHR, text, error) {
+            error: function (jqXHR, text, error) {
                 $('#recaptchaError').text('');
                 // Если существует свойство msg у объекта $data, то...
                 if ($data.msg) {
@@ -55,7 +55,7 @@ $(document).ready(function() {
                 $('input').not(':input[type=submit], :input[type=hidden]').val('');
                 $('textarea').val('');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     // $('.mform-error').html('Ошибка. Данные не отправлены.');
                     $('.mform-error').toggleClass('d-none');
                     div_hide('openModal');
@@ -65,35 +65,35 @@ $(document).ready(function() {
         })
 
         return false;
-    }​);​
+    });
     //  });
 
 
     //****** проверка - сепаратор ввод номера телефона ********/
     // masked_input_1.4.1-min.js
     // angelwatt.com/coding/masked_input.php
-    (function(a) {
-        a.MaskedInput = function(f) {
+    (function (a) {
+        a.MaskedInput = function (f) {
             if (!f || !f.elm || !f.format) { return null }
             if (!(this instanceof a.MaskedInput)) { return new a.MaskedInput(f) }
             var o = this,
                 d = f.elm,
                 s = f.format,
                 i = f.allowed || "0123456789",
-                h = f.allowedfx || function() { return true },
+                h = f.allowedfx || function () { return true },
                 p = f.separator || "/:-",
                 n = f.typeon || "_YMDhms",
-                c = f.onbadkey || function() {},
-                q = f.onfilled || function() {},
+                c = f.onbadkey || function () { },
+                q = f.onfilled || function () { },
                 w = f.badkeywait || 0,
                 A = f.hasOwnProperty("preserve") ? !!f.preserve : true,
                 l = true,
                 y = false,
                 t = s,
-                j = (function() { if (window.addEventListener) { return function(E, C, D, B) { E.addEventListener(C, D, (B === undefined) ? false : B) } } if (window.attachEvent) { return function(D, B, C) { D.attachEvent("on" + B, C) } } return function(D, B, C) { D["on" + B] = C } }()),
-                u = function() { for (var B = d.value.length - 1; B >= 0; B--) { for (var D = 0, C = n.length; D < C; D++) { if (d.value[B] === n[D]) { return false } } } return true },
-                x = function(C) { try { C.focus(); if (C.selectionStart >= 0) { return C.selectionStart } if (document.selection) { var B = document.selection.createRange(); return -B.moveStart("character", -C.value.length) } return -1 } catch (D) { return -1 } },
-                b = function(C, E) {
+                j = (function () { if (window.addEventListener) { return function (E, C, D, B) { E.addEventListener(C, D, (B === undefined) ? false : B) } } if (window.attachEvent) { return function (D, B, C) { D.attachEvent("on" + B, C) } } return function (D, B, C) { D["on" + B] = C } }()),
+                u = function () { for (var B = d.value.length - 1; B >= 0; B--) { for (var D = 0, C = n.length; D < C; D++) { if (d.value[B] === n[D]) { return false } } } return true },
+                x = function (C) { try { C.focus(); if (C.selectionStart >= 0) { return C.selectionStart } if (document.selection) { var B = document.selection.createRange(); return -B.moveStart("character", -C.value.length) } return -1 } catch (D) { return -1 } },
+                b = function (C, E) {
                     try {
                         if (C.selectionStart) {
                             C.focus();
@@ -108,7 +108,7 @@ $(document).ready(function() {
                     } catch (D) { return false }
                     return true
                 },
-                m = function(D) {
+                m = function (D) {
                     D = D || window.event;
                     var C = "",
                         E = D.which,
@@ -142,11 +142,11 @@ $(document).ready(function() {
                     }
                     return C
                 },
-                v = function(B, C) {
+                v = function (B, C) {
                     if (B.preventDefault) { B.preventDefault() }
                     B.returnValue = C || false
                 },
-                k = function(B) {
+                k = function (B) {
                     var D = x(d),
                         F = d.value,
                         E = "",
@@ -182,12 +182,12 @@ $(document).ready(function() {
                     b(d, D);
                     return false
                 },
-                g = function(B) {
+                g = function (B) {
                     if (i.indexOf(B) === -1 && B !== "bksp" && B !== "del" && B !== "etc") {
                         var C = x(d);
                         y = true;
                         c(B);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             y = false;
                             b(d, C)
                         }, w);
@@ -195,7 +195,7 @@ $(document).ready(function() {
                     }
                     return true
                 },
-                z = function(C) {
+                z = function (C) {
                     if (!l) { return true }
                     C = C || event;
                     if (y) { v(C); return false }
@@ -213,7 +213,7 @@ $(document).ready(function() {
                     }
                     return true
                 },
-                e = function(C) {
+                e = function (C) {
                     if (!l) { return true }
                     C = C || event;
                     if (y) { v(C); return false }
@@ -232,35 +232,35 @@ $(document).ready(function() {
                     }
                     return false
                 },
-                r = function() {
+                r = function () {
                     if (!d.tagName || (d.tagName.toUpperCase() !== "INPUT" && d.tagName.toUpperCase() !== "TEXTAREA")) { return null }
                     o.elm = d;
                     if (!A || d.value === "") { d.value = s }
-                    j(d, "keydown", function(B) { z(B) });
-                    j(d, "keypress", function(B) { e(B) });
-                    j(d, "focus", function() { t = d.value });
-                    j(d, "blur", function() { if (d.value !== t && d.onchange) { d.onchange() } });
+                    j(d, "keydown", function (B) { z(B) });
+                    j(d, "keypress", function (B) { e(B) });
+                    j(d, "focus", function () { t = d.value });
+                    j(d, "blur", function () { if (d.value !== t && d.onchange) { d.onchange() } });
                     return o
                 };
-            o.resetField = function() { d.value = s };
-            o.setAllowed = function(B) {
+            o.resetField = function () { d.value = s };
+            o.setAllowed = function (B) {
                 i = B;
                 o.resetField()
             };
-            o.setCursorPos = function(B) { b(d, B) };
-            o.setFormat = function(B) {
+            o.setCursorPos = function (B) { b(d, B) };
+            o.setFormat = function (B) {
                 s = B;
                 o.resetField()
             };
-            o.setSeparator = function(B) {
+            o.setSeparator = function (B) {
                 p = B;
                 o.resetField()
             };
-            o.setTypeon = function(B) {
+            o.setTypeon = function (B) {
                 n = B;
                 o.resetField()
             };
-            o.setEnabled = function(B) { l = B };
+            o.setEnabled = function (B) { l = B };
             return r()
         }
     }(window));
