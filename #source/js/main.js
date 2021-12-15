@@ -16,6 +16,12 @@ function div_hide(id) {
    }
 }
 
+/**** отлов события клика на фон, а там проверяйте, попадает ли клик в модальное окно, и если нет, то закрываеv его: *****/
+$(document).click(function (e) {
+   if ($(e.target).is('.modalDialog')) {
+      div_hide('openModal');
+   }
+});
 
 
 

@@ -1,10 +1,10 @@
 <?php
 
  //global $user_ID, $user_identity, $user_level; 
+ wp_reset_postdata();  // при вызове с другой страницы, сброс
 
 $admin_email=get_option('admin_email'); // получить опциии для sample_theme_option
 
-wp_reset_postdata();  // при вызове с другой страницы, сброс
 // echo $post->ID;
 // echo get_the_title();
 //$srttitle= get_the_title();;  // делаем для текущего поста, если сбросили
@@ -43,6 +43,7 @@ if(isset($_POST["zakaz_zvonka"])) {
     
         <form name="loginform" id="loginform" action="login"  method="post" data-type="authorization"> 
     -->
+    
   <form name="loginform" onsubmit="return false;"  id="loginform" action="<?php //bloginfo('url') ?>/wp-login.php" method="post" data-type="authorization"> 
    <!--  onsubmit="return false; чтобы форма не отправляла данные  -->
     <div class="form-login"> 
@@ -157,8 +158,8 @@ if(isset($_POST["zakaz_zvonka"])) {
       </div>  
             <span class="span_logintpassword">
             <a href="<?php bloginfo( 'url' ) ?>/wp-login.php?action=lostpassword">Забыли пароль? </a> </span> 
-        
-    </div>
+       
+    </div> 
 
 </div>
     <!--  в атрибуте value укажите страницу, на которую хотите редиректить пользователя после входа на сайт. -->

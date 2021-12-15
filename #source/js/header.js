@@ -18,21 +18,22 @@ $(function () {
 });
 
 
-
-
-
 // Простая функция для получения get:
 function $_GET(key) {
    var p = window.location.search;
    p = p.match(new RegExp(key + '=([^&=]+)'));
    return p ? p[1] : false;
 }
-// вкл модальное окно
+
+//
+// вкл/выкл модальное окно
 if ($_GET('logform') == 'y') {
    $("#openModal").show();
    //  div_hide('openModal')
 }
 
+
+//
 // *************
 /*
 jQuery("#loginform-custom").submit(function () {

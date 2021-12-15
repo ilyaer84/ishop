@@ -83,19 +83,21 @@ jQuery(document).ready(function ($) {
 
 				} else {
 
-
-					setTimeout(function () {
+					if (document.location.href == 'http://avito-pro/reg/') {  // надо править!
+						window.location.replace(window.wp_data.url_homme); // Переадресация страницы
+					} else {
+						setTimeout(function () {
+							$('.form-result-success').toggleClass('d-none');
+							div_hide('openModal');
+							//$('#recaptchaError').text('');
+							//console.log('AJAX response : ', response);
+							//$('input').not(':input[type=submit], :input[type=hidden]').val('');
+							//$('textarea').val('');
+						}, 2200);
 						$('.form-result-success').toggleClass('d-none');
-						div_hide('openModal');
-						//$('#recaptchaError').text('');
-						//console.log('AJAX response : ', response);
-						//$('input').not(':input[type=submit], :input[type=hidden]').val('');
-						//$('textarea').val('');
-					}, 2200);
-					$('.form-result-success').toggleClass('d-none');
-					//console.log('$remem ' + $remem);
-					window.location.reload();  // Перезагрузка страницы
-
+						//console.log('$remem ' + $remem);					 
+						window.location.reload();  // Перезагрузка страницы
+					}
 
 					// Пользователь авторизован, покажем ему сообщение.
 					// $('.wplb_holder').addClass('wplb_alert wplb_signon').html('<p style="margin-bottom:3px;"><strong>Добро пожаловать!</strong></p>Ajax выполнил свою работу, вы в системе! Перезагрузите страницу и убедитесь.');

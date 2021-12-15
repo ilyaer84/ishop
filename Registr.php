@@ -60,7 +60,7 @@ get_header();
 
 
 		<a title="Закрыть" class="close" onClick="div_hide('openModal');" >X</a>
-		<p class="p_centr p_mad_title">Вход </p>  
+	 
 
     <?php
     if (!$_COOKIE["wordpress_test_cookie"]) {
@@ -119,11 +119,13 @@ get_header();
           </div>
 
             <!-- Сообщение об успешной отправки формы -->
+              <!--
         <div class="form-result-success d-none t-c" style="position: absolute;
         top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 1.25rem; z-index: 1000;">
-          <div class=" alert-success " style="z-index: 1001;">Вход совершен.
+          <div class=" alert-success " style="z-index: 1001;">Вы зарегистрированы! Вход совершен.
           </div>
         </div>
+        -->
 
         <div class="user_name">
         <label>Имя <span>*</span></label>        
@@ -146,7 +148,7 @@ get_header();
       </div> 
 
       <div class='div_sub'>  
-      <input class='sub_form' type="submit" name="wp-submit" id="wp-submit" value="Вход"  /> 
+      <input class='sub_form' type="submit" name="wp-submit" id="wp-submit" value="Регистрация"  /> 
       
        </div>
 

@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+
+
     $("#f_sub").hide();
     $("#zvonok .div_sub").append("<input class='bot-send-mail' type='submit' name='zakaz_zvonka' value='Отправить'>");
     //  $('.bot-send-mail').bind('click', savecontact);

@@ -155,6 +155,7 @@ include_once(__DIR__ . '/inc/admin/admin_my_astra.php');
 // end 
 
 // ! подключение стилей к  определенной странице
+add_action( 'wp_enqueue_scripts', 'wpse_enqueue_page_template_styles' );
 function wpse_enqueue_page_template_styles() {
    if ( is_page_template( 'adres-magaz.php' ) ) {
   //   wp_enqueue_style( 'page-template', get_stylesheet_directory_uri() . '/assets/css/adres-mag.css' );
@@ -172,14 +173,9 @@ function wpse_enqueue_page_template_styles() {
  //     wp_enqueue_script('obr_sv_zv', get_stylesheet_directory_uri() . '/assets/js/obrat_sv.js');
 
    }
-
-
-
 }
-add_action( 'wp_enqueue_scripts', 'wpse_enqueue_page_template_styles' );
+
 // end 
-
-
 
 // ! обработчик аякс запроса
 function func_form(){
@@ -192,9 +188,11 @@ add_action('wp_ajax_form_obr'       , 'func_form');
 add_action('wp_ajax_nopriv_form_obr', 'func_form');
 
 // создаем ссылки 
-/*
+
+add_action('wp_head','js_variables');
 function js_variables(){
    $variables = array (
+      'url_homme' => home_url('/'), // вид ссылки window.wp_data.url_homme
       'ajax_url' => admin_url('admin-ajax.php'), // вид ссылки window.wp_data.ajax_url
       'is_mobile' => wp_is_mobile()
        // Тут обычно какие-то другие переменные
@@ -202,8 +200,7 @@ function js_variables(){
    echo '<script type="text/javascript">window.wp_data = '.
        json_encode($variables).   ';</script>'  ;
 }
-add_action('wp_head','js_variables');
-*/
+
 // end  аякс 
 
 
@@ -283,6 +280,7 @@ add_action('widgets_init', function(){  // widgets_init название хук�
 
    // ! Подключаем шорткоды
 include_once(__DIR__ . '/inc/shortcode/my_shortcode.php'); 
+include_once(__DIR__ . '/inc/shortcode/lostpassword.php'); 
 
    add_shortcode('test_shortcode', function($atts){
       var_dump($atts);
@@ -388,13 +386,15 @@ function form_page_login( $user ){
 }
 */
 // ! Переход на главную после нажатия кнопки выход
+/*
+// Проблема с корзиной, не запоминаету конкретного пользователя, не понятно как работает корзина
 add_action('wp_logout','my_wp_logout');
 function my_wp_logout() {
     wp_safe_redirect('/');
     exit;
 };
 //
-
+*/
 
 // ! загрузить SVG
 /*
@@ -474,7 +474,7 @@ function login_redirect() {
 
 
 // изменить логотип при входе
-
+/*
 function custom_login_logo(){
    echo  '<style type="text/css">
    #login h1 a { background: url('. IMG_DIR.'logo.png) no-repeat 50% 50% !important;
@@ -484,64 +484,15 @@ function custom_login_logo(){
    </style>';
    }
    add_action('login_enqueue_scripts', 'custom_login_logo');
-
+*/
 // изменить ссылку  входе
-
+/*
 function custom_logo_admin_link(){
    return home_url( '/');
 }
 add_filter( 'login_headerurl','custom_logo_admin_link');
-
+*/
 //
-
-// !Осторожно  Перенос скриптов в подвал 
-/*
-if(!is_admin()){ 
-   remove_action('wp_head', 'wp_print_scripts'); 
-   remove_action('wp_head', 'wp_print_head_scripts', 9); 
-   remove_action('wp_head', 'wp_enqueue_scripts', 1); 
-   add_action('wp_footer', 'wp_print_scripts', 5); 
-   add_action('wp_footer', 'wp_enqueue_scripts', 5); 
-   add_action('wp_footer', 'wp_print_head_scripts', 5); 
-   }
- */
-
- //Значения true если нужно отобразить подключения в футере и false если в хедере. 
-/*
-add_action( 'wp_enqueue_scripts', 'true_include_myscript' );
-function true_include_myscript() {
-    wp_enqueue_script( 'themename', get_stylesheet_directory_uri() . '/js/jquery.polaris.js', array('jquery'), null, true );
-}
-*/
-
-
-// Перемещаем jQuery в футер сайта
-//add_action('wp_enqueue_scripts', 'true_peremeshhaem_jquery_v_futer');  
- /*
-function true_peremeshhaem_jquery_v_futer() {  
- 	// снимаем стандартную регистрацию jQuery
-        wp_deregister_script('jquery');  
- 
-        // регистрируем для подключения в футере, описание параметров - в документации функции (ссылка чуть выше)
-        wp_register_script('jquery', includes_url('/js/jquery/jquery.js'), false, null, true);  
- 
-	// подключаем
-        wp_enqueue_script('jquery');  
- 
-}
-*/
-
-// end Перенос скриптов в подвал 
-/*
-add_action( 'wp_print_styles', 'true_otkljuchaem_stili_contact_form', 100 ); 
-// по идее вы можете использовать и хук wp_enqueue_scripts, хотя конкретно его я не тестировал
- 
-function true_otkljuchaem_stili_contact_form() {
-   wp_deregister_style( 'contact-form-7' ); // в параметрах - ID подключаемого файла
-   wp_deregister_style( 'astra-theme-css-inline-css' ); 
-   wp_deregister_style( 'google-fonts-1-css' );
-}
-*/
 
 
 // При помощи этого хука можно задать определённые имена пользователей, которые вы бы хотели запретить для регистрации, пример:
@@ -580,7 +531,6 @@ function wplb_ajax_enqueue() {
 	);
 
 }
-
 
 // Создаём событие обработки Ajax запроса.
 add_action( 'wp_ajax_nopriv_wplb_ajax_request', 'wplb_ajax_request' );
@@ -774,6 +724,7 @@ public function redirect_to_custom_register() {
 }
 */
 
+
 // Login redirects
 // Направление пользователя при регистрации
 /*
@@ -806,27 +757,93 @@ function register_link_url( $url ) {
 */
 
 
+/* редирект с wp-login.php -  если не аторизованный */
+function wpse_login(){
+// global $pagenow;
+ $page_viewed = basename($_SERVER['REQUEST_URI']);  
+ if( 'wp-login.php' == $page_viewed  and !is_user_logged_in() ) { //&& 'wp-admin/index.php' != $pagenow 
+   wp_redirect(home_url('/'));  
+   exit();
+ }
+}
+add_action('init','wpse_login');
+
+/*
+if( current_user_can( 'manage_options' ) ){ //Проверим администратор пользователь или нет: (manage_options - права администратора)
+   wp_redirect(home_url('/admin'));
+   exit();
+}
+*/
+   /*редирект с wp-login.php -  в админке 
+   авторизация, на страницу с формой авторизации*/
+   /*
+   function redirect_login_page() {  
+      $page_viewed = basename($_SERVER['REQUEST_URI']);  
+
+      if( $page_viewed == "wp-login.php" ) {  
+         wp_redirect( home_url('/auth') );  
+         exit;  
+      }  
+   }  
+   add_action('init','redirect_login_page');
+*/
+
+   /*редирект с wp-login.php - регистрация, на страницу с формой регистрации*/
+function redirect_register_page() {  
+   $page_viewed = basename($_SERVER['REQUEST_URI']);  
+
+   if( $page_viewed == "wp-login.php?action=register" ) {  
+       wp_redirect( home_url('/reg/') );  
+       exit;  
+   }  
+}  
+add_action('init','redirect_register_page');
+
+/*редирект с wp-login.php - восстановлене пароля, на страницу с формой восстановления пароля*/
+function redirect_lostpassword_page() {  
+   $page_viewed = basename($_SERVER['REQUEST_URI']);  
+
+   if( $page_viewed == "wp-login.php?action=lostpassword" ) {  
+       wp_redirect( home_url('/my-account-2/lost-password/') );  
+       exit;  
+   }  
+}  
+add_action('init','redirect_lostpassword_page');
+
+/*редирект с wp-login.php - страница выхода, на главную страницу */
+function redirect_logout_page() {  
+   $page_viewed = basename($_SERVER['REQUEST_URI']);  
+
+   if( $page_viewed == "wp-login.php?action=logout" ) {  
+       wp_redirect( home_url('/') );  
+       exit;  
+   }  
+}  
+add_action('init','redirect_logout_page');
+
+/*редирект с wp-login.php - страница выхода, на главную страницу*/
+function redirect_loggedout_page() {  
+   $page_viewed = basename($_SERVER['REQUEST_URI']);  
+
+   if( $page_viewed == "wp-login.php?loggedout=true" ) {  
+       wp_redirect( home_url('/') );  
+       exit;  
+   }  
+}  
+add_action('init','redirect_loggedout_page');
+
 // !Все для кастомной регистрации, авторизации
 
 // При помощи этого хука можно задать определённые имена пользователей, которые вы бы хотели запретить для регистрации, пример:
 
 add_filter( 'illegal_user_logins', function( $illegal_logins ) {
  
-	return array( 'Loh', 'administrator', 'admin' );
+	return array( 'Loh', 'administrator', 'admin');
  
 } );
 
-add_action('init','wpse_login');
 
-function wpse_login(){
- global $pagenow;
- if( 'wp-login.php' == $pagenow && !is_user_logged_in()) { // && !is_user_logged_in() )
-  wp_redirect('http://avito-pro/');
-  exit();
- }
-}
-
-// Как добавить новое поле в Профиль пользователя WordPress
+// ! Как добавить новое поле в Профиль пользователя WordPress
 add_filter('user_contactmethods', 'my_user_contactmethods');
  
 function my_user_contactmethods($user_contactmethods){
@@ -837,8 +854,6 @@ function my_user_contactmethods($user_contactmethods){
  
   return $user_contactmethods;
 }
-
-
 
 // Как перенаправить пользователя после входа в WordPress
 /*
@@ -875,71 +890,10 @@ function redirect_users_after_login() {
 add_action( 'admin_init', 'redirect_users_after_login' );
 */
 //
-
-
-add_action('init','my_auth');
-function my_auth(){
-   global $user;
-   global $password;
-   if( $user ) {
-      global $reg_errors;
-/*
-      wp_set_current_user( $user->$user_id, $user->user_login );
-      echo 'ID ===  ' .   $user->$user_id   . '<br />'; 
-      echo 'user_login ' .   $user->user_login   . '<br />';
-      echo 'user_pass ' .   $user->password   . '<br />'; ;
- 
-      wp_set_auth_cookie( $user->$user_id );
-      do_action( 'wp_login', $user->user_login );
-*/
-//echo 'f login ===  ' .   $user->user_login   . '<br />'; 
-//wtf($user->$user_id );
-/*
-$user['remember'] = true;
-$signon = wp_signon($user, false);
-if (is_wp_error($signon)) 
-echo $signon->get_error_message();
-//print_r($signon);
-
-  }
-
-  $creds = array();
-  $creds['user_login'] = $user->user_login;
-  $creds['user_password'] =  $password ;
-  $creds['remember'] = true;
-  $signon = wp_signon( $creds, false );
-
-  if ( is_wp_error( $signon ) ) {
-
-   // Авторизовать не получилось
-   //$result[ 'status' ] = false;
-   //$result[ 'content' ] = $signon->get_error_message();
-        echo '<div>';
-        echo '<strong>ERROR AUTH </strong>:';
-        echo $signon->get_error_message();    
-        echo '</div>';
-
-} else {
-
-   // Авторизация успешна, устанавливаем необходимые куки.
-       
-   wp_clear_auth_cookie();
-   clean_user_cache( $signon->ID );
-   wp_set_current_user( $signon->ID );
-   wp_set_auth_cookie( $signon->ID );
-   update_user_caches( $signon );
-        
-
-   // Записываем результаты в массив.
-   // $result[ 'status' ] = true;
-}
-   */
-
-}
-
-}
-
-
-
-
+function your_function() {
+   if( function_exists('WC') ){
+   WC()->cart->empty_cart();
+   }
+   }
+   add_action('wp_logout', 'your_function');
 // end 

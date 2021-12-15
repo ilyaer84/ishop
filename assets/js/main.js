@@ -1,1 +1,1 @@
-function div_hide(l){x=document.getElementById(l),"block"==x.style.display?x.style.display="none":x.style.display="block"}console.log("Hi? main");
+function div_hide(l){x=document.getElementById(l),"block"==x.style.display?x.style.display="none":x.style.display="block"}console.log("Hi? main"),$(document).click((function(l){$(l.target).is(".modalDialog")&&div_hide("openModal")}));
