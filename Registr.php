@@ -1,6 +1,7 @@
 <?php
 /*
     Template Name: Custom Registration
+    страница регистрации
 */
 
 
