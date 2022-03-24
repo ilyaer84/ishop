@@ -179,6 +179,7 @@ if(isset($_POST["zakaz_zvonka"])) {
 <div class="social-likes m-c">
           <?PHP
               //if(empty($_SESSION['id'])) {
+                // ! Удали !!!
             if(isset($_SESSION['id']) & !empty($_SESSION['id']) ) {
 
               echo "<div class='t-c'>Вы авторизованы!</div>";

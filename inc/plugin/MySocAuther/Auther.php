@@ -105,6 +105,13 @@ if (isset($_GET['code'])) {
 
     
     if ($result) {
+        /*
+        Здесь делаем логику
+            проверка зарегин ли - ! с какой сети ! 
+            регистрируем если не зарегин
+
+            и производим вход 
+        */
         echo "ID пользователя: " . $userInfo['id'] . '<br />';
         echo "Имя пользователя: " . $userInfo['first_name'] . '<br />';
         echo "Ссылка на профиль: " . $userInfo['screen_name'] . '<br />';
@@ -113,6 +120,9 @@ if (isset($_GET['code'])) {
         if($userInfo['sex'] == 2){echo "Пол: мужской<br>";}
         echo "День Рождения: " . $userInfo['bdate'] . '<br />';
         echo '<img src="' . $userInfo['photo_big'] . '" />'; echo "<br />";
+
+
+        wplb_ajax_request();
 
         /*
         echo "Фамилия: ".$data['last_name']."<br>";

@@ -3,6 +3,7 @@
 //@prepros-append header.js
 
 console.log('Hi? main'); // выводим 
+console.log(my_tem.url_tem);
 
 /**** ф-я скрыть / открыть *****/
 function div_hide(id) {

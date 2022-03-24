@@ -130,10 +130,24 @@ include_once(__DIR__ . '/inc/admin/admin_my_astra.php');
    // (название , адресс) get_template_directory_uri - расположение темы 
  
   
-   wp_deregister_script('jquery'); // прибиваем стандартный wp jquery
+   //wp_deregister_script('jquery'); // прибиваем стандартный wp jquery
+   //wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js');
+// ! как подключить jQuery той версии, которая используется в WordPress, но с сервиса CDN:
+   add_action( 'wp_enqueue_scripts', 'my_scripts_method', 99 );
+   function my_scripts_method() {
+      // получаем версию jQuery
+      wp_enqueue_script( 'jquery' );
+      // для версий WP меньше 3.6 'jquery' нужно поменять на 'jquery-core'
+      $wp_jquery_ver = $GLOBALS['wp_scripts']->registered['jquery']->ver;
+      $jquery_ver = $wp_jquery_ver == '' ? '1.11.0' : $wp_jquery_ver;
+   
+      wp_deregister_script( 'jquery-core' );
+      wp_register_script( 'jquery-core', '//ajax.googleapis.com/ajax/libs/jquery/'. $jquery_ver .'/jquery.min.js' );
+      wp_enqueue_script( 'jquery' );
+   }
+// end
 
-   wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js');
-//   wp_enqueue_script('slick', get_stylesheet_directory_uri() . '/assets/js/slick.min.js');
+   //   wp_enqueue_script('slick', get_stylesheet_directory_uri() . '/assets/js/slick.min.js');
    wp_enqueue_script('main_script', get_stylesheet_directory_uri() . '/assets/js/main.js');
 
    //работаем с аватарами 
@@ -153,6 +167,17 @@ include_once(__DIR__ . '/inc/admin/admin_my_astra.php');
    }
 
 // end 
+
+
+//! передадим переменную данные в js
+add_action( 'wp_enqueue_scripts', 'action_function_perem_v_js', 99 );
+function action_function_perem_v_js(){
+  wp_localize_script( 'jquery', 'my_tem', array( 
+    'url_tem' => 'enbgenb' //get_stylesheet_directory_uri(), //  get_template_directory_uri
+    // получить в js  my_tem.url_tem + '/images/image.jpg'
+  ) );
+}
+//end 
 
 // ! подключение стилей к  определенной странице
 add_action( 'wp_enqueue_scripts', 'wpse_enqueue_page_template_styles' );
@@ -536,7 +561,9 @@ function wplb_ajax_enqueue() {
 add_action( 'wp_ajax_nopriv_wplb_ajax_request', 'wplb_ajax_request' );
 add_action( 'wp_ajax_wplb_ajax_request', 'wplb_ajax_request' );
 
-// Описываем саму функцию.
+
+
+// ! !!! Описываем саму функцию.
 function wplb_ajax_request() {
 
 	// Перемененная $_REQUEST содержит все данные заполненных форм.
@@ -559,90 +586,90 @@ function wplb_ajax_request() {
 				/**
 				 * Заполнена форма регистрации.
 				 */
+             // Создаём массив с данными для регистрации нового пользователя.
+    $user_data = array(
+      'user_login' => $creds[ 'log' ], // Логин.
+      'user_pass' => $creds[ 'pwd' ], // Пароль.
+      'role' => 'subscriber' // Роль.
+   );
 
-            // Создаём массив с данными для регистрации нового пользователя.
-            $user_data = array(
-               'user_login' => $creds[ 'log' ], // Логин.
-               'user_pass' => $creds[ 'pwd' ], // Пароль.
-               'role' => 'subscriber' // Роль.
-            );
+   // Пробуем создать объект с пользователем.
+   //$user = username_exists( $creds[ 'wplb_login' ] );
+   $user = username_exists( $creds[ 'log' ] );
+ //  $result[ 'content' ] .= ' wplb_login =   '. $creds[ 'log' ];
 
-				// Пробуем создать объект с пользователем.
-            //$user = username_exists( $creds[ 'wplb_login' ] );
-            $user = username_exists( $creds[ 'log' ] );
-          //  $result[ 'content' ] .= ' wplb_login =   '. $creds[ 'log' ];
+   // Проверяем, а может быть уже есть такой пользователь
+   if ( !$user ) { // && false == email_exists( $creds[ 'wplb_email' ] ) ) {
+      // Пользователя не существует.
 
-				// Проверяем, а может быть уже есть такой пользователь
-				if ( !$user ) { // && false == email_exists( $creds[ 'wplb_email' ] ) ) {
-					// Пользователя не существует.
+      // Создаём массив с данными для регистрации нового пользователя.
+      /*
+      $user_data = array(
+         'user_login' => $creds[ 'wplb_login' ], // Логин.
+         'user_email' => $creds[ 'wplb_email' ], // Email.
+         'user_pass' => $creds[ 'wplb_password' ], // Пароль.
+         'display_name' => $creds[ 'wplb_login' ], // Отображаемое имя.
+         'role' => 'subscriber' // Роль.
+      );
+      */
 
-               // Создаём массив с данными для регистрации нового пользователя.
-               /*
-					$user_data = array(
-						'user_login' => $creds[ 'wplb_login' ], // Логин.
-						'user_email' => $creds[ 'wplb_email' ], // Email.
-						'user_pass' => $creds[ 'wplb_password' ], // Пароль.
-						'display_name' => $creds[ 'wplb_login' ], // Отображаемое имя.
-						'role' => 'subscriber' // Роль.
-               );
-               */
+      
 
-               
+      // Добавляем пользователя в базу данных.
+      $user = wp_insert_user( $user_data );
 
-					// Добавляем пользователя в базу данных.
-					$user = wp_insert_user( $user_data );
+      // Проверка на ошибки.
+      if ( is_wp_error( $user ) ) {
 
-					// Проверка на ошибки.
-					if ( is_wp_error( $user ) ) {
+         // Невозможно создать пользователя, записываем результат в массив.
+         //$result[ 'status' ] = false;
+         $result[ 'content' ] .= $user->get_error_message();
 
-						// Невозможно создать пользователя, записываем результат в массив.
-						//$result[ 'status' ] = false;
-                  $result[ 'content' ] .= $user->get_error_message();
+      } else {
 
-					} else {
+         // Создаём массив для авторизации.
+         /*$creds = array(
+            'user_login' => $creds[ 'wplb_login' ], // Логин пользователя.
+            'user_password' => $creds[ 'wplb_password' ], // Пароль пользователя.
+            'remember' => true // Запоминаем.
+         );*/
+         $creds = array(
+            'user_login' => $creds[ 'log' ], // Логин пользователя.
+            'user_password' => $creds[ 'pwd' ], // Пароль пользователя.
+            'remember' => true // Запоминаем.
+         );
 
-						// Создаём массив для авторизации.
-						/*$creds = array(
-							'user_login' => $creds[ 'wplb_login' ], // Логин пользователя.
-							'user_password' => $creds[ 'wplb_password' ], // Пароль пользователя.
-							'remember' => true // Запоминаем.
-                  );*/
-                  $creds = array(
-							'user_login' => $creds[ 'log' ], // Логин пользователя.
-							'user_password' => $creds[ 'pwd' ], // Пароль пользователя.
-							'remember' => true // Запоминаем.
-						);
+         // Пробуем авторизовать пользователя.
+         $signon = wp_signon( $creds, false );
 
-						// Пробуем авторизовать пользователя.
-						$signon = wp_signon( $creds, false );
+         if ( is_wp_error( $signon ) ) {
 
-						if ( is_wp_error( $signon ) ) {
+            // Авторизовать не получилось.
+            $result[ 'status' ] = false;
+            $result[ 'content' ] .= $signon->get_error_message();
+            $result[ 'content' ] .= 'Авторизовать не получилось';
 
-							// Авторизовать не получилось.
-							$result[ 'status' ] = false;
-                     $result[ 'content' ] .= $signon->get_error_message();
-                     $result[ 'content' ] .= 'Авторизовать не получилось';
+         } else {
 
-						} else {
+            // Авторизация успешна, устанавливаем необходимые куки.
+            wp_clear_auth_cookie();
+            clean_user_cache( $signon->ID );
+            wp_set_current_user( $signon->ID );
+            wp_set_auth_cookie( $signon->ID );
+            update_user_caches( $signon );
 
-							// Авторизация успешна, устанавливаем необходимые куки.
-							wp_clear_auth_cookie();
-							clean_user_cache( $signon->ID );
-							wp_set_current_user( $signon->ID );
-							wp_set_auth_cookie( $signon->ID );
-							update_user_caches( $signon );
+            // Записываем результаты в массив.
+            $result[ 'status' ] = true;
+         }
 
-							// Записываем результаты в массив.
-							$result[ 'status' ] = true;
-						}
-
-					}
-				} else {
-					
-					// Такой пользователь уже существует, регистрация не возможна, записываем данные в массив.
-					$result[ 'status' ] = false;
-					$result[ 'content' ] = esc_html__( 'Пользователь уже существует', 'wplb_ajax_lesson' );
-				}
+      }
+   } else {
+      
+      // Такой пользователь уже существует, регистрация не возможна, записываем данные в массив.
+      $result[ 'status' ] = false;
+      $result[ 'content' ] = esc_html__( 'Пользователь уже существует', 'wplb_ajax_lesson' );
+   }
+           
 				break;
 
 

@@ -59,10 +59,6 @@ get_header();
  <div class="wplb_holder <?php echo is_user_logged_in() ? // Проверяет авторизован ли пользователь (вошел ли пользователь под своим логином). Возвращает true, если пользователь авторизован и false, если нет.
                                  'wplb_alert wplb_signon' : ''?>">
 
-
-		<a title="Закрыть" class="close" onClick="div_hide('openModal');" >X</a>
-	 
-
     <?php
     if (!$_COOKIE["wordpress_test_cookie"]) {
       // setcookie("test","1");
@@ -149,30 +145,10 @@ get_header();
       </div> 
 
       <div class='div_sub'>  
-      <input class='sub_form' type="submit" name="wp-submit" id="wp-submit" value="Регистрация"  /> 
+        <input class='sub_form' type="submit" name="wp-submit" id="wp-submit" value="Регистрация"  /> 
       
        </div>
 
-        
-          <span class="wplb_loading t-c"> Загрузка... </span>
-       
-<!-- элемент для вывода ошибок -->
-
-       <div class="wplb_alert text-danger t-c"></div>
-
-    <div class="signin-signup__content"> 
-
-      <div class="checkbox-after-label">
-        <span class="js-inPopup">
-          <input class="js-inPopup"  name="rememberme" type="checkbox" id="rememberme" value="true" checked /> 
-        Запомнить меня </span>
-      </div>  
-            <span class="span_logintpassword">
-            <a href="<?php bloginfo( 'url' ) ?>/wp-login.php?action=lostpassword">Забыли пароль? </a> </span> 
-        
-    </div>
-
-</div>
     <!--  в атрибуте value укажите страницу, на которую хотите редиректить пользователя после входа на сайт. -->
           <input type="hidden" name="redirect_to" value="<?php bloginfo('url') ?>/" /> 
           <input type="hidden" name="testcookie" value="1" />

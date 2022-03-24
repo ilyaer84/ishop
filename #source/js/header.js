@@ -17,7 +17,6 @@ $(function () {
    console.log(document.cookie);
 });
 
-
 // Простая функция для получения get:
 function $_GET(key) {
    var p = window.location.search;
