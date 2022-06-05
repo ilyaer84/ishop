@@ -134,9 +134,6 @@ if ($.cookie("wordpress_test_cookie") == null) {
 //  win**************************************************
 
 window.onscroll = function () {
-
-
-
    /*
       if (window.matchMedia('(min-width: 940px)').matches) {
          */
@@ -160,8 +157,6 @@ window.onscroll = function () {
 
 }
 */
-
-
 
 };
 

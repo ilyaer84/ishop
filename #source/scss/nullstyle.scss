@@ -130,7 +130,7 @@ h6 {
 .block {
 }
 .block__container {
-   max-width: 1600px; // полотно в макете
+   max-width: #{$maxWidth}px; // полотно в макете
    padding: 0px 15px;
    margin: 0px auto;
 }
@@ -157,12 +157,12 @@ h6 {
 
 @media (max-width: 1600px) {
    .block__body {
-      padding: calc(20px + (50-20) * ((100vw -320px) / (1600 - 320)));
+      padding: calc(20px + (50 - 20) * ((100vw - 320px) / (1600 - 320)));
    }
    .block__title {
       // минимальный шрифт на 320px = 20px (был 30)
-      padding: calc(20px + (30-20) * ((100vw -320px) / (1600 - 320)));
+      padding: calc(20px + (30 - 20) * ((100vw - 320px) / (1600 - 320)));
       //уменьшим отступ было 20, хотим чтоб стало 10
-      margin-bottom: calc(20px + (50-20) * ((100vw -320px) / (1600 - 320)));
+      margin-bottom: calc(20px + (50 - 20) * ((100vw - 320px) / (1600 - 320)));
    }
 }

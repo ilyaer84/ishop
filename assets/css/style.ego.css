@@ -104,7 +104,7 @@ h6 {
 
 /*--------------------*/
 .block__container {
-  max-width: 1600px;
+  max-width: 1920px;
   padding: 0px 15px;
   margin: 0px auto;
 }
@@ -126,12 +126,12 @@ h6 {
 
 @media (max-width: 1600px) {
   .block__body {
-    padding: calc(20px + (50-20) * ((100vw -320px) / (1600 - 320)));
+    padding: calc(20px + 30 * (100vw - 320px) / 1280);
   }
 
   .block__title {
-    padding: calc(20px + (30-20) * ((100vw -320px) / (1600 - 320)));
-    margin-bottom: calc(20px + (50-20) * ((100vw -320px) / (1600 - 320)));
+    padding: calc(20px + 10 * (100vw - 320px) / 1280);
+    margin-bottom: calc(20px + 30 * (100vw - 320px) / 1280);
   }
 }
 .tplborder, .link-2, .link {

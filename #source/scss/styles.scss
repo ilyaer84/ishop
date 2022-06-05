@@ -12,11 +12,66 @@ $color_2: rgb(94, 67, 248);
 $color_3: #525e69;
 $color_cer: #b4b4b4;
 
+// селекторы
+[class*="__container"] {
+   max-width: 1087px; // заданный +  зона безопасности (ниже padding)
+   margin: 0 auto;
+   padding: 0px 15px; // + зона безопасности
+}
+// end селекторы
+
+// пример все (шапка, main, подвал) вложить в wrapper
+.wrapper {
+   // так построим тело и прибьем футер
+   overflow: hidden;
+   display: flex;
+   flex-direction: column;
+   min-height: 100%;
+}
+.main {
+   flex: 1 1 auto; // на весь дисплей
+}
+
 .container {
    max-width: 1600px;
    margin: 0px auto;
    padding: 0px 10px;
 }
+
+// псевдоклассы
+/*
+.class:not(:last-child) {  // для класса только если обьект не последний
+   margin: 0px 0px 12px 0px;
+} 
+*/
+// end
+
+// адапт видео
+.experts__container {
+   display: flex;
+}
+.expert__content {
+   flex: 0 1 50%;
+}
+
+.expert__video {
+   flex: 0 1 50%;
+   padding: 0px 0px 28% 0px;
+   position: relative;
+   // доп тень, закругл борд
+   box-shadow: 0px 4px 18px rgba(88, 126, 236, 0.18);
+   border-radius: 8px;
+   overflow: hidden;
+}
+.expert__video iframe {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   object-fit: cover; // так же как с картинками
+}
+//  end адапт видео
 
 /*2 цвета */
 
@@ -62,7 +117,7 @@ a.no-after:after {
 }
 /*** a стили с плавным подчеркиванием ссылки***/
 /*
-a {
+a {   
    display: inline-block;
    color: #ffeb3b;
    line-height: 1;

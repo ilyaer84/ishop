@@ -147,7 +147,7 @@ include_once(__DIR__ . '/inc/admin/admin_my_astra.php');
    }
 // end
 
-   //   wp_enqueue_script('slick', get_stylesheet_directory_uri() . '/assets/js/slick.min.js');
+   //   wp_enqueue_script('slick', get_stylesheet_directory_uri() . '/assets/js/slick.min.js');  // слайдер 
    wp_enqueue_script('main_script', get_stylesheet_directory_uri() . '/assets/js/main.js');
 
    //работаем с аватарами 
@@ -241,10 +241,10 @@ add_action('after_setup_theme', function(){
    // и на странице блога в индексе посты распараленены на свои типы  что позволит использовать get_template_part() 
 */
      add_image_size('size100-100', 100, 100, false); // регистрация своего размера!
-     add_image_size('size300-200', 300, 200, false); 
-     add_image_size('size600-400', 600, 400, false); 
-     add_image_size('size768-512', 768, 512, false); 
-     add_image_size('size1536-1024', 1536, 1024, false);  // регистрация своего размера!
+//     add_image_size('size300-200', 300, 200, false); 
+//     add_image_size('size600-400', 600, 400, false); 
+//     add_image_size('size768-512', 768, 512, false); 
+//     add_image_size('size1536-1024', 1536, 1024, false);  // регистрация своего размера!
 });
 
 
@@ -359,7 +359,86 @@ function wtf($array, $stop = false) {
 }
 
 //
-\
+
+
+
+
+// ! загрузить SVG
+/*
+add_filter( 'upload_mimes', 'svg_upload_allow' );
+
+# Добавляет SVG в список разрешенных для загрузки файлов.
+function svg_upload_allow( $mimes ) {
+	$mimes['svg']  = 'image/svg+xml';
+
+	return $mimes;
+}
+*/
+//
+
+// ! WooCommerce WC
+
+// Пустая корзина при выходе
+function your_function() {
+   if( function_exists('WC') ){
+   WC()->cart->empty_cart();
+   }
+   }
+   add_action('wp_logout', 'your_function');
+
+
+// Работаем с формой поиска woocommerce
+
+add_filter( 'get_product_search_form' , 'woo_andreyex_product_my_searchform' );
+function woo_andreyex_product_my_searchform( $form ) {
+
+	$form = '<form role="search" method="get" id="searchform" action="' . esc_url( home_url( '/'  ) ) . '">
+		<div>
+			<label class="screen-reader-text" for="s">' . __( 'Поиск товара', 'woocommerce' ) . '</label>
+			<input type="text" value="' . get_search_query() . '" name="s" id="s" placeholder="' . __( 'Поиск товара', 'woocommerce' ) . '" />
+			<input type="submit" id="searchsubmit" value="'. esc_attr__( 'Искать', 'woocommerce' ) .'" />
+			<input type="hidden" name="post_type" value="product" />
+         </div>
+	</form>';
+	return $form;
+}
+
+// WooCommerce end 
+
+// ! Вносим Изменения в родительскую тему
+//header 
+function astra_site_branding_markup() {
+   ?>
+
+   <div class="site-branding">
+      <div
+      <?php
+         echo astra_attr(
+            'site-identity',
+            array(
+               'class' => 'ast-site-identity',
+            )
+         );
+      ?>
+      >
+         <?php astra_logo(); ?>
+      </div>
+      <div class="header-tools">
+<?php  // get_search_form() ;
+// get_product_search_form(); ?>
+      </div>
+   
+</div>
+   <!-- .site-branding -->
+   <?php
+}
+
+//add_action( 'astra_masthead_content', 'astra_site_branding_markup', 8 );
+
+//
+
+// *************
+
 
 // Работа с формой входа 
 
@@ -420,72 +499,6 @@ function my_wp_logout() {
 };
 //
 */
-
-// ! загрузить SVG
-/*
-add_filter( 'upload_mimes', 'svg_upload_allow' );
-
-# Добавляет SVG в список разрешенных для загрузки файлов.
-function svg_upload_allow( $mimes ) {
-	$mimes['svg']  = 'image/svg+xml';
-
-	return $mimes;
-}
-*/
-//
-
-// ! Работаем с формой поиска woocommerce
-
-add_filter( 'get_product_search_form' , 'woo_andreyex_product_my_searchform' );
-function woo_andreyex_product_my_searchform( $form ) {
-
-	$form = '<form role="search" method="get" id="searchform" action="' . esc_url( home_url( '/'  ) ) . '">
-		<div>
-			<label class="screen-reader-text" for="s">' . __( 'Поиск товара', 'woocommerce' ) . '</label>
-			<input type="text" value="' . get_search_query() . '" name="s" id="s" placeholder="' . __( 'Поиск товара', 'woocommerce' ) . '" />
-			<input type="submit" id="searchsubmit" value="'. esc_attr__( 'Искать', 'woocommerce' ) .'" />
-			<input type="hidden" name="post_type" value="product" />
-         </div>
-	</form>';
-
-	return $form;
-
-}
-//
-
-// ! Вносим Изменения в родительскую тему
-//header 
-function astra_site_branding_markup() {
-   ?>
-
-   <div class="site-branding">
-      <div
-      <?php
-         echo astra_attr(
-            'site-identity',
-            array(
-               'class' => 'ast-site-identity',
-            )
-         );
-      ?>
-      >
-         <?php astra_logo(); ?>
-      </div>
-      <div class="header-tools">
-<?php  // get_search_form() ;
-// get_product_search_form(); ?>
-      </div>
-   
-</div>
-   <!-- .site-branding -->
-   <?php
-}
-
-//add_action( 'astra_masthead_content', 'astra_site_branding_markup', 8 );
-
-//
-
-// *************
 
 // для входа на сайт пользователей
 // ! переадресацией после входа
@@ -563,7 +576,7 @@ add_action( 'wp_ajax_wplb_ajax_request', 'wplb_ajax_request' );
 
 
 
-// ! !!! Описываем саму функцию.
+//  Описываем саму функцию.
 function wplb_ajax_request() {
 
 	// Перемененная $_REQUEST содержит все данные заполненных форм.
@@ -580,7 +593,6 @@ function wplb_ajax_request() {
 		// Создаём массив который содержит значения полей заполненной формы.
       parse_str( $_REQUEST[ 'content' ], $creds ); //  Разбирает строку в переменные
       
-
 		switch ( $_REQUEST[ 'type' ] ) {
          case 'registration':            
 				/**
@@ -622,7 +634,7 @@ function wplb_ajax_request() {
       if ( is_wp_error( $user ) ) {
 
          // Невозможно создать пользователя, записываем результат в массив.
-         //$result[ 'status' ] = false;
+         $result[ 'status' ] = false;
          $result[ 'content' ] .= $user->get_error_message();
 
       } else {
@@ -723,8 +735,6 @@ function wplb_ajax_request() {
 	wp_die();
 }
 
-// end ayax рег авториз
-
 /*
 add_shortcode( 'wplb_ajax_example', 'wplb_ajax_example_function' );
 function wplb_ajax_example_function() {
@@ -734,7 +744,12 @@ function wplb_ajax_example_function() {
 }
 */
 
-/**
+// end ayax рег авториз
+
+
+
+
+/****************************
  * Направление пользователя на собственную страницу регистрации
  * вместо wp-login.php?action=register.
  */
@@ -756,19 +771,52 @@ public function redirect_to_custom_register() {
 // Направление пользователя при регистрации
 /*
 function custom_login_url() {
-   echo header("Location: " . get_bloginfo( 'url' ) ); //. "/reg");  на стр входа
+   echo header("Location: " . get_bloginfo( 'url' ) ); //. "/reg");  на стр входа // get_bloginfo Получает информацию о сайте из настроек.
 }
  
 add_action('login_head', 'custom_login_url');
+*/
 
 
-function login_link_url( $url ) {
-   $url = get_bloginfo( 'url' ) ; //. "/reg";
-   return $url;
+
+// Как перенаправить пользователя после входа в WordPress
+/*
+function redirect_users_after_login() {
+   $user = wp_get_current_user();
+   $roles = ( array ) $user->roles;
+   $url = 'http://avito-pro';
+   
+   // Редирект для администраторов
+   if ( $roles[0] == 'administrator' ) {
+        wp_redirect( $url );
+        exit;
    }
-add_filter( 'login_url', 'login_link_url', 10, 2 );
+   
+   // Редирект для подписчиков
+   if ( $roles[0] == 'subscriber' ) {
+        wp_redirect( $url );
+        exit;
+   }
 
+   // Редирект для авторов
+   if ( $roles[0] == 'author' ) {
+        wp_redirect( $url );
+        exit;
+   }
+
+   // Редирект для редакторов
+   if ( $roles[0] == 'editor' ) {
+        wp_redirect( $url );
+        exit;
+   }
+
+}
+add_action( 'admin_init', 'redirect_users_after_login' );
+*/
+
+/*
 // чтобы полностью скрыть стандартную страницу регистрации WordPress:
+
 function register_link_url( $url ) {
    if ( ! is_user_logged_in() ) {
       if ( get_option('users_can_register') )
@@ -781,10 +829,11 @@ function register_link_url( $url ) {
  }
 
  add_filter( 'register', 'register_link_url', 10, 2 );
+
 */
 
-
 /* редирект с wp-login.php -  если не аторизованный */
+/*
 function wpse_login(){
 // global $pagenow;
  $page_viewed = basename($_SERVER['REQUEST_URI']);  
@@ -794,33 +843,107 @@ function wpse_login(){
  }
 }
 add_action('init','wpse_login');
-
+*/
 /*
 if( current_user_can( 'manage_options' ) ){ //Проверим администратор пользователь или нет: (manage_options - права администратора)
-   wp_redirect(home_url('/admin'));
+   wp_redirect(home_url('/wp-admin'));
    exit();
 }
 */
+
+ // сработает на /admin 
+
+
+   function login_link_url( $url ) {
+      $url = get_bloginfo( 'url' ) ; //. "/reg";
+      return $url;
+      }
+   add_filter( 'login_url', 'login_link_url', 10, 2 );
+   
+//
+
    /*редирект с wp-login.php -  в админке 
    авторизация, на страницу с формой авторизации*/
    /*
    function redirect_login_page() {  
       $page_viewed = basename($_SERVER['REQUEST_URI']);  
+      $parse = parse_url($page_viewed, PHP_URL_PATH); 
 
-      if( $page_viewed == "wp-login.php" ) {  
-         wp_redirect( home_url('/auth') );  
-         exit;  
-      }  
-   }  
-   add_action('init','redirect_login_page');
+      parse_str($_SERVER['REQUEST_URI'], $query);
+    //  print_r($query);
+    //  echo '<br> /wp-login_php?action = ' . $query['/wp-login_php?action']; // logout
+
+/*
+      $url = 'https://snipp.ru/php/parse-url?page=1&sort=1#sample';
+      $parse = parse_url($url);
+      print_r($parse);      
+      echo parse_url($url, PHP_URL_PATH);      // /php/parse-url
+      Array
+      (      
+          [scheme] => https      
+          [host] => snipp.ru      
+          [path] => /php/parse-url      
+          [query] => page=1&sort=1      
+          [fragment] => sample      
+      )
 */
+    //  if( $page_viewed == "wp-login.php" or  $page_viewed == "wp-login.php?action=register" ) {
+ /*        
+       if (  $parse == "wp-login.php" and $query['/wp-login_php?action'] != 'logout') {          
+               wp_redirect( home_url('/') );  //  /auth
+               exit;                
+      }  
+   }
+      add_action('init','redirect_login_page');
+
+*/
+      
+// Если вы не можете использовать wp_logout_url()функцию, вы можете отключить эту проверку с помощью этого кода:
+/*
+add_action('check_admin_referer', 'logout_without_confirm', 10, 2);
+function logout_without_confirm($action, $result)
+{
+    /**
+     * Разрешить вход без подтверждения
+     */
+ /*   if ($action == "log-out" && !isset($_GET['_wpnonce'])) {
+        $redirect_to = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : 'url-you-want-to-redirect';
+        $location = str_replace('&amp;', '&', wp_logout_url($redirect_to));
+        header("Location: $location");
+        die;
+    }
+}
 
    /*редирект с wp-login.php - регистрация, на страницу с формой регистрации*/
+   /*
 function redirect_register_page() {  
    $page_viewed = basename($_SERVER['REQUEST_URI']);  
 
    if( $page_viewed == "wp-login.php?action=register" ) {  
-       wp_redirect( home_url('/reg/') );  
+       wp_redirect( home_url('/') );  
+       exit;  
+   }  
+}  
+add_action('init','redirect_register_page');
+*/
+
+ /*редирект с wp-login.php - авторизация, на страницу с формой авторизации*/
+ function redirect_login_page() {  
+   $page_viewed = basename($_SERVER['REQUEST_URI']);  
+
+   if( $page_viewed == "wp-login.php" ) {  
+       wp_redirect( home_url('/') );  
+       exit;  
+   }  
+}  
+add_action('init','redirect_login_page');
+
+/*редирект с wp-login.php - регистрация, на страницу с формой регистрации*/
+function redirect_register_page() {  
+   $page_viewed = basename($_SERVER['REQUEST_URI']);  
+
+   if( $page_viewed == "wp-login.php?action=register" ) {  
+       wp_redirect( home_url('/reg') );  
        exit;  
    }  
 }  
@@ -831,7 +954,7 @@ function redirect_lostpassword_page() {
    $page_viewed = basename($_SERVER['REQUEST_URI']);  
 
    if( $page_viewed == "wp-login.php?action=lostpassword" ) {  
-       wp_redirect( home_url('/my-account-2/lost-password/') );  
+       wp_redirect( home_url('/my-account-2/lost-password/') );   // править?
        exit;  
    }  
 }  
@@ -882,45 +1005,3 @@ function my_user_contactmethods($user_contactmethods){
   return $user_contactmethods;
 }
 
-// Как перенаправить пользователя после входа в WordPress
-/*
-function redirect_users_after_login() {
-   $user = wp_get_current_user();
-   $roles = ( array ) $user->roles;
-   $url = 'http://avito-pro';
-   
-   // Редирект для администраторов
-   if ( $roles[0] == 'administrator' ) {
-        wp_redirect( $url );
-        exit;
-   }
-   
-   // Редирект для подписчиков
-   if ( $roles[0] == 'subscriber' ) {
-        wp_redirect( $url );
-        exit;
-   }
-
-   // Редирект для авторов
-   if ( $roles[0] == 'author' ) {
-        wp_redirect( $url );
-        exit;
-   }
-
-   // Редирект для редакторов
-   if ( $roles[0] == 'editor' ) {
-        wp_redirect( $url );
-        exit;
-   }
-
-}
-add_action( 'admin_init', 'redirect_users_after_login' );
-*/
-//
-function your_function() {
-   if( function_exists('WC') ){
-   WC()->cart->empty_cart();
-   }
-   }
-   add_action('wp_logout', 'your_function');
-// end 
