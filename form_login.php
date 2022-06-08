@@ -15,7 +15,7 @@ if(isset($_POST["zakaz_zvonka"])) {
   include(__DIR__ . '/assets/modul/email.php'); }
   */    
 
-  include_once(get_stylesheet_directory() . '/inc/plugin/MySocAuther/Auther.php');
+  include_once(get_stylesheet_directory() . '/inc/plugin/MySocAuther/Auther.php');  // подключаем файл логики с авторизацией соцсетей
 
   ?>
 
@@ -44,7 +44,7 @@ if(isset($_POST["zakaz_zvonka"])) {
         <form name="loginform" id="loginform" action="login"  method="post" data-type="authorization"> 
     -->
     
-  <form name="loginform" onsubmit="return false;"  id="loginform" action="<?php //bloginfo('url') ?>/wp-login.php" method="post" data-type="authorization"> 
+  <form name="loginform" onsubmit="return false;"  id="login_form" action="<?php //bloginfo('url') ?>/wp-login.php" method="post" data-type="authorization"> 
    <!--  onsubmit="return false; чтобы форма не отправляла данные  -->
     <div class="form-login"> 
 
@@ -190,8 +190,10 @@ if(isset($_POST["zakaz_zvonka"])) {
      
       <div class="m-c">
 
+      
+
       <?PHP
-              echo $link = '<a class="mod_icon  z_vk icon-vk " href="' . $url_auther . '?' . urldecode(http_build_query($params)) . '"title="Авторизоваться через Вконтакте"></a></div>';
+              echo $link = '<a class="mod_icon  z_vk icon-vk social_net" data-type="VK" href="' . $url_auther . '?' . urldecode(http_build_query($params)) . '"title="Авторизоваться через Вконтакте"></a></div>';
               // urldecode — Декодирование URL-кодированной строки
               // http_build_query — Генерирует URL-кодированную строку запроса
           
@@ -208,7 +210,7 @@ if(isset($_POST["zakaz_zvonka"])) {
       </div>
 -->
       <div class="m-c">
-        <a class="mod_icon red icon-yandex" href="" title="Авторизоваться через Яндекс">  </a>
+        <a class="mod_icon red icon-yandex social_net"  title="Авторизоваться через Яндекс">  </a>
       </div>
 
       <?PHP } ?>

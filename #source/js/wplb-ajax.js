@@ -8,7 +8,8 @@ jQuery(document).ready(function ($) {
 	header('Access-Control-Allow-Headers: Content-Type');
 	header('Access-Control-Allow-Credentials: true');
 	*/
-	console.log('Hi? login'); // выводим
+
+	// console.log('wplb'); // выводим
 
 	// скрипт передача аякс запроса авторизации, можно несколько форм -> по какой кнопке
 	'use strict'; // это так называемый «строгом режиме», который заметно ограничивает синтаксис котором можно пользоваться.
@@ -17,7 +18,6 @@ jQuery(document).ready(function ($) {
 	// Функция отправки форм.
 	$('.wplb_holder').on('submit', 'form', function (ev) {
 		//e.preventDefault(); // предотвращаем отправку формы
-
 		// Определяем какую форму пользователь заполнил.
 		let this_is = $(this);
 
@@ -119,5 +119,10 @@ jQuery(document).ready(function ($) {
 
 	});
 
+	$(".social_net").click(function () {
+
+		console.log('social_net'); // выводим
+
+	});
 
 });

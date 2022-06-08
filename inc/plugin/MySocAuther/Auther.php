@@ -110,6 +110,8 @@ if (isset($_GET['code'])) {
             проверка зарегин ли - ! с какой сети ! 
             регистрируем если не зарегин
 
+            Момент  с паролем - самому вставсляем- кодируем
+
             и производим вход 
         */
         echo "ID пользователя: " . $userInfo['id'] . '<br />';
@@ -121,8 +123,88 @@ if (isset($_GET['code'])) {
         echo "День Рождения: " . $userInfo['bdate'] . '<br />';
         echo '<img src="' . $userInfo['photo_big'] . '" />'; echo "<br />";
 
+       
+       
 
-        wplb_ajax_request();
+        $random_password = wp_generate_password( 12 );  // Генерирует случайный пароль. Можно указать длину и символы для генерации.
+        // $user_id = wp_create_user( $user_name, $random_password, $user_email );
+
+        // $user_id = wp_create_user( $userInfo['first_name'], $random_password, $userInfo['first_name'] );
+        $data = array( 
+        //    'ID' => $random_password,
+            'user_pass' => $random_password, 
+            'user_login' => $userInfo['first_name'], 
+            'first_name' => $userInfo['first_name'], // Имя 
+         //   'last_name' => $userInfo['first_name'], // 	Фамилия
+        /*     
+            'display_name' => $random_password,
+            'role' => $random_password, // Роль   
+            'last_name' => $userInfo['screen_name'],
+        */
+        );
+
+        $user_id = wp_insert_user( $data );  // умеет и добавлять, и обновлять, принимает только один аргумент - массив, Если в массиве "$data" передать ключ "ID", то пользователь будет обновлён.
+        
+
+        if ( is_wp_error( $user_id ) ) {
+            echo '<br>' . $user_id->get_error_message() . 'br';
+        }
+        else {
+            echo 'Юзер создан.';
+        }
+
+        $args = array(  
+            'echo'           => false,
+            'redirect' => home_url(),   
+            'id_username' => $userInfo["first_name"],  
+            'id_password' => $random_password,  
+        ) ;
+
+
+         if ( is_wp_error( $signon ) ) {
+
+            // Авторизовать не получилось.
+            /*
+            $result[ 'status' ] = false;
+            $result[ 'content' ] .= $signon->get_error_message();
+            $result[ 'content' ] .= 'Авторизовать не получилось';
+*/
+         } else {
+
+            // Авторизация успешна, устанавливаем необходимые куки.
+            /*
+            wp_clear_auth_cookie();
+            clean_user_cache( $signon->ID );
+            wp_set_current_user( $signon->ID );
+            wp_set_auth_cookie( $signon->ID );
+            update_user_caches( $signon );
+*/
+            // Записываем результаты в массив.
+         //   $result[ 'status' ] = true;
+            
+            // отправляет уведомления администратору и пользователю
+            // wp_new_user_notification( $user_id, $password );
+         }
+/*
+        wp_login_form( array(
+            'echo'           => true,
+            'redirect'       => site_url( $_SERVER['REQUEST_URI'] ),
+            'form_id'        => 'loginform',
+            'label_username' => __( 'Username' ),
+            'label_password' => __( 'Password' ),
+            'label_remember' => __( 'Remember Me' ),
+            'label_log_in'   => __( 'Log In' ),
+            'id_username'    => 'user_login',
+            'id_password'    => 'user_pass',
+            'id_remember'    => 'rememberme',
+            'id_submit'      => 'wp-submit',
+            'remember'       => true,
+            'value_username' => NULL,
+            'value_remember' => false
+        ) );
+*/
+    
+      //  wplb_ajax_request();
 
         /*
         echo "Фамилия: ".$data['last_name']."<br>";
@@ -131,7 +213,10 @@ if (isset($_GET['code'])) {
         echo "Город: ".$data['city']['title'];
 */
     }
-}
+}  
 
-$_SESSION['id'] = $userInfo['id'];
+
+
+print_r($userInfo['id']);
+// $_SESSION['id'] = $userInfo['id'];
 

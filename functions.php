@@ -95,7 +95,8 @@ session_destroy ();
 
     // ! КОНСТАНТЫ
     define('IMG_DIR', get_stylesheet_directory_uri() . '/assets/img/'); // константа глобально доступна для файлов темы
-    
+    define('ASS_DIR', get_stylesheet_directory_uri() . '/assets/'); 
+
     define('CREATED', '2021');
     
     define('FROM_EMAIL', 'ilyaer84@ya.ru');
@@ -567,14 +568,11 @@ function wplb_ajax_enqueue() {
 			'nonce' => wp_create_nonce( 'wplb-nonce' ) // Создаем nonce Создает уникальный защитный ключ на короткий промежуток времени
 		)
 	);
-
 }
 
 // Создаём событие обработки Ajax запроса.
-add_action( 'wp_ajax_nopriv_wplb_ajax_request', 'wplb_ajax_request' );
-add_action( 'wp_ajax_wplb_ajax_request', 'wplb_ajax_request' );
-
-
+add_action( 'wp_ajax_nopriv_wplb_ajax_request', 'wplb_ajax_request' );  // событие будет доступно только для не авторизированных пользователей (гости).
+add_action( 'wp_ajax_wplb_ajax_request', 'wplb_ajax_request' );  // только для авторизированных пользователей.
 
 //  Описываем саму функцию.
 function wplb_ajax_request() {
@@ -672,6 +670,9 @@ function wplb_ajax_request() {
 
             // Записываем результаты в массив.
             $result[ 'status' ] = true;
+            
+            // отправляет уведомления администратору и пользователю
+            // wp_new_user_notification( $user_id, $password );
          }
 
       }
@@ -746,6 +747,31 @@ function wplb_ajax_example_function() {
 
 // end ayax рег авториз
 
+
+// при использ $_POST , вместо того, чтобы вызывать где-либо эту функцию, повесил на хук after_setup_theme и проверяю, отправлен ли запрос POST с заданным ключом, тогда это работает.
+/*function custom_registration() {
+	if(isset($_POST["wp-submit"])) {
+		$userdata = array(
+			'user_login' => $_POST['user_login'],
+			'user_pass'  => $_POST['user_pass'],
+			'user_email' => $_POST['user_email']
+		);
+
+		$user_id = wp_insert_user( $userdata );
+
+		$login_data = array();
+		$login_data['user_login'] = $_POST['user_login'];
+		$login_data['user_password'] = $_POST['user_pass'];
+
+		$user = wp_signon( $login_data, false );
+
+		wp_clear_auth_cookie();
+		wp_set_current_user($user->ID);
+		wp_set_auth_cookie($user->ID, true);
+		$cuser = wp_get_current_user();
+	}
+}
+*/
 
 
 
@@ -986,10 +1012,8 @@ add_action('init','redirect_loggedout_page');
 
 // При помощи этого хука можно задать определённые имена пользователей, которые вы бы хотели запретить для регистрации, пример:
 
-add_filter( 'illegal_user_logins', function( $illegal_logins ) {
- 
-	return array( 'Loh', 'administrator', 'admin');
- 
+add_filter( 'illegal_user_logins', function( $illegal_logins ) { 
+	return array( 'Loh', 'administrator', 'admin'); 
 } );
 
 
@@ -1005,3 +1029,4 @@ function my_user_contactmethods($user_contactmethods){
   return $user_contactmethods;
 }
 
+//  "php.validate.executablePath": true

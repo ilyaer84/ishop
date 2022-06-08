@@ -24,7 +24,7 @@ $(document).click(function (e) {
    }
 });
 
-
+console.log('Ok - main'); // выводим 
 
 
 
