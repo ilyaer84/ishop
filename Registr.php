@@ -153,6 +153,8 @@ get_header();
           <input type="hidden" name="redirect_to" value="<?php bloginfo('url') ?>/" /> 
           <input type="hidden" name="testcookie" value="1" />
 
+          <input type="hidden" name="auth_via" value="native" />
+
       
      </form>
 

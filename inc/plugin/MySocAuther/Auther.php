@@ -49,7 +49,7 @@ include_once(get_stylesheet_directory() . '/inc/plugin/SocialAuther/Adapter/Adap
 
 $client_id = 7725386; // ID приложения
 $client_secret = 'f3apfsnqlfNTXOlJyTRG'; // Защищённый ключ
-$redirect_uri = 'http://avito-pro/'; // Адрес сайта auth?provider=vk
+$redirect_uri = 'http://avito-pro/#openModal'; // Адрес сайта auth?provider=vk // надо Править
 
 $url_auther = 'http://oauth.vk.com/authorize'; // Ссылка для авторизации на стороне ВК
 
@@ -69,8 +69,10 @@ $params = [ 'client_id' => $client_id, 'redirect_uri'  => $redirect_uri, 'respon
 }
 */
 
-$result = false;
+   // Введём переменную, которая будет содержать массив с результатом отработки события.
+   $result = array( 'status' => false, 'content' => false );
 
+   
 if (isset($_GET['code'])) {
     $result = true;
     $params = [
@@ -126,7 +128,8 @@ if (isset($_GET['code'])) {
        
        
 
-        $random_password = wp_generate_password( 12 );  // Генерирует случайный пароль. Можно указать длину и символы для генерации.
+        //$random_password = wp_generate_password( 12 );  // Генерирует случайный пароль. Можно указать длину и символы для генерации.
+        $random_password = '12356vk';
         // $user_id = wp_create_user( $user_name, $random_password, $user_email );
 
         // $user_id = wp_create_user( $userInfo['first_name'], $random_password, $userInfo['first_name'] );
@@ -135,6 +138,8 @@ if (isset($_GET['code'])) {
             'user_pass' => $random_password, 
             'user_login' => $userInfo['first_name'], 
             'first_name' => $userInfo['first_name'], // Имя 
+            'auth_via' => '<vk></vk>', //$creds [ 'auth_via' ]   // тип регистрации  native - родная
+
          //   'last_name' => $userInfo['first_name'], // 	Фамилия
         /*     
             'display_name' => $random_password,
@@ -143,44 +148,77 @@ if (isset($_GET['code'])) {
         */
         );
 
+
+       // wplb_ajax_requesttt($data);
+
+
         $user_id = wp_insert_user( $data );  // умеет и добавлять, и обновлять, принимает только один аргумент - массив, Если в массиве "$data" передать ключ "ID", то пользователь будет обновлён.
         
 
         if ( is_wp_error( $user_id ) ) {
-            echo '<br>' . $user_id->get_error_message() . 'br';
+            echo '<br>' . $user_id->get_error_message() . '<br>';
+            $signon = wp_signon( $data , false );
+            if ( is_wp_error( $signon ) ) {
+
+                // Авторизовать не получилось.
+                
+                $result[ 'status' ] = false;
+                $result[ 'content' ] .= $signon->get_error_message();
+                $result[ 'content' ] .= 'Авторизовать не получилось';
+    
+             } else {
+    
+                // Авторизация успешна, устанавливаем необходимые куки.
+                
+                wp_clear_auth_cookie();
+                clean_user_cache( $signon->ID );
+                wp_set_current_user( $signon->ID );
+                wp_set_auth_cookie( $signon->ID );
+                update_user_caches( $signon );
+    
+                // Записываем результаты в массив.
+               $result[ 'status' ] = true;
+                
+                // отправляет уведомления администратору и пользователю
+                // wp_new_user_notification( $user_id, $password );
+             }
+
         }
         else {
             echo 'Юзер создан.';
         }
 
         $args = array(  
-            'echo'           => false,
+           // 'echo'           => false,
             'redirect' => home_url(),   
             'id_username' => $userInfo["first_name"],  
             'id_password' => $random_password,  
         ) ;
 
+        
+      // Пробуем авторизовать пользователя.
+      $signon = wp_signon( $args , false );
 
          if ( is_wp_error( $signon ) ) {
 
             // Авторизовать не получилось.
-            /*
+            
             $result[ 'status' ] = false;
             $result[ 'content' ] .= $signon->get_error_message();
             $result[ 'content' ] .= 'Авторизовать не получилось';
-*/
+
          } else {
 
             // Авторизация успешна, устанавливаем необходимые куки.
-            /*
+            
             wp_clear_auth_cookie();
             clean_user_cache( $signon->ID );
             wp_set_current_user( $signon->ID );
             wp_set_auth_cookie( $signon->ID );
             update_user_caches( $signon );
-*/
+
             // Записываем результаты в массив.
-         //   $result[ 'status' ] = true;
+           $result[ 'status' ] = true;
             
             // отправляет уведомления администратору и пользователю
             // wp_new_user_notification( $user_id, $password );
@@ -212,11 +250,18 @@ if (isset($_GET['code'])) {
         echo "Страна: ".$data['country']['title']."<br>";
         echo "Город: ".$data['city']['title'];
 */
+
+            
+echo '$result[ status ]: ' . $result[ "status" ] . '<br />';
+echo '$result[ content ]: ' . $result[ 'content' ] . '<br />';
     }
+   
+
+    print_r($userInfo['id']);
 }  
 
 
 
-print_r($userInfo['id']);
+
 // $_SESSION['id'] = $userInfo['id'];
 

@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!-- Модальное окно   -->
 <div id="openModal" class="modalDialog">  
-		<?php get_template_part('form_login'); ?>   
+		<?php get_template_part('form_login'); // вставляем из файла ?>   
 	</div>
 
 
